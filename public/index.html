@@ -983,6 +983,42 @@
         </div>
     </div>
 
+    <!-- Resume-Job Match Modal - FIXED VERSION -->
+    <div id="matchModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('matchModal')">&times;</span>
+            <h2>🔍 Resume-Job Match Analyzer</h2>
+            <p style="margin-bottom: 25px; opacity: 0.9;">
+                Compare your resume against specific job descriptions and get a detailed match percentage with gap analysis and improvement recommendations.
+            </p>
+            
+            <div class="form-group">
+                <label for="matchJobDescription">Job Description *</label>
+                <textarea id="matchJobDescription" rows="5" placeholder="Paste the complete job description here (including requirements, responsibilities, and qualifications)..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="matchResumeContent">Your Resume Content *</label>
+                <textarea id="matchResumeContent" rows="5" placeholder="Paste your resume content here (or key sections like experience, skills, education)..."></textarea>
+            </div>
+            
+            <div style="background: rgba(76, 201, 196, 0.1); padding: 15px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #4ecdc4;">
+                <div style="font-size: 0.9rem; opacity: 0.9;">
+                    <strong>💡 Tip:</strong> For best results, include the complete job posting and your full resume. 
+                    The AI will analyze keyword matches, skill gaps, and provide specific improvement suggestions.
+                </div>
+            </div>
+            
+            <button class="btn btn-ai" onclick="generateContent('match', 'ai')">🤖 Analyze Match & Get Score</button>
+            <button class="btn career" onclick="generateContent('match', 'template')">📋 Basic Analysis</button>
+            
+            <div id="matchOutput" class="output-area" style="display: none;"></div>
+            <button id="matchDownload" class="btn download-btn" style="display: none;" onclick="downloadContent('matchOutput', 'match_analysis.txt')">
+                📥 Download Analysis
+            </button>
+        </div>
+    </div>
+
     <!-- HR TOOL MODALS -->
     
     <!-- Job Description Modal -->
@@ -1300,7 +1336,7 @@
             <span class="close" onclick="closeModal('coverLetterModal')">&times;</span>
             <h2>💌 Cover Letter Generator</h2>
             <p style="margin-bottom: 25px; opacity: 0.9;">
-                Generate compelling, personalized cover letters that showcase your value proposition.
+                Generate compelling, personalized cover letters tailored to specific job descriptions and your background.
             </p>
             
             <div class="form-group">
@@ -1320,16 +1356,21 @@
             </div>
             
             <div class="form-group">
-                <label for="relevantExperience">Relevant Experience *</label>
-                <textarea id="relevantExperience" rows="4" placeholder="Describe your most relevant experience for this role..."></textarea>
+                <label for="jobDescription">Job Description *</label>
+                <textarea id="jobDescription" rows="4" placeholder="Paste the full job description here so AI can tailor your cover letter to match the requirements..."></textarea>
             </div>
             
             <div class="form-group">
-                <label for="whyCompany">Why This Company?</label>
-                <textarea id="whyCompany" rows="3" placeholder="What attracts you to this company?"></textarea>
+                <label for="relevantExperience">Your Resume/Experience *</label>
+                <textarea id="relevantExperience" rows="4" placeholder="Paste your resume or describe your relevant experience and achievements..."></textarea>
             </div>
             
-            <button class="btn btn-ai" onclick="generateContent('coverLetter', 'ai')">🤖 Generate with AI</button>
+            <div class="form-group">
+                <label for="whyCompany">Why This Company? (Optional)</label>
+                <textarea id="whyCompany" rows="2" placeholder="What specific aspects of this company attract you?"></textarea>
+            </div>
+            
+            <button class="btn btn-ai" onclick="generateContent('coverLetter', 'ai')">🤖 Generate Tailored Cover Letter</button>
             <button class="btn career" onclick="generateContent('coverLetter', 'template')">📋 Use Template</button>
             
             <div id="coverLetterOutput" class="output-area" style="display: none;"></div>
@@ -1533,15 +1574,55 @@
             }
         }
 
-        // AI Generation with OpenAI integration
+        // Smart token management based on content type
+        function getTokenLimit(type) {
+            switch(type) {
+                case 'resume': return 1500;           // Needs comprehensive detail
+                case 'job': return 1200;              // Detailed job descriptions
+                case 'onboarding': return 1400;       // Comprehensive plans
+                case 'performance': return 1300;      // Detailed reviews
+                case 'policy': return 1400;           // Legal compliance needs detail
+                case 'screening': return 1000;        // Analysis and scoring
+                case 'interviewQ': return 1000;       // Question sets
+                case 'coverLetter': return 900;       // Concise but compelling
+                case 'linkedin': return 700;          // Profile sections
+                case 'ats': return 800;               // Analysis report
+                case 'match': return 800;             // Match analysis
+                case 'careerInterview': return 1000;  // Prep questions
+                default: return 1000;
+            }
+        }
+
+        // AI Generation with smart token management
         async function generateWithAI(type, outputId, downloadId) {
             const prompt = buildPrompt(type);
             if (!prompt) return;
 
-            document.getElementById(outputId).innerHTML = '<div class="loading"></div> 🤖 AI is generating your content...';
-            document.getElementById(outputId).style.display = 'block';
+            const outputElement = document.getElementById(outputId);
+            outputElement.style.display = 'block';
+
+            // Show progressive loading messages
+            let loadingStep = 0;
+            const loadingMessages = [
+                '🤖 Connecting to AI...',
+                '🧠 AI is analyzing your request...',
+                '✍️ Generating professional content...',
+                '📝 Finalizing your document...'
+            ];
+
+            outputElement.innerHTML = '<div class="loading"></div> ' + loadingMessages[0];
+
+            const progressInterval = setInterval(() => {
+                loadingStep = (loadingStep + 1) % loadingMessages.length;
+                if (outputElement.innerHTML.includes('loading')) {
+                    outputElement.innerHTML = '<div class="loading"></div> ' + loadingMessages[loadingStep];
+                }
+            }, 3000);
 
             try {
+                console.log('Making API request to:', API_ENDPOINT);
+                console.log('Request payload:', { prompt, type });
+
                 const response = await fetch(API_ENDPOINT, {
                     method: 'POST',
                     headers: {
@@ -1550,35 +1631,41 @@
                     body: JSON.stringify({
                         prompt: prompt,
                         type: type,
-                        model: 'gpt-4o-mini', // Use OpenAI's GPT-4o-mini model
-                        max_tokens: 2000,
+                        model: 'gpt-4o-mini',
+                        max_tokens: getTokenLimit(type), // Smart token management
                         temperature: 0.7
                     })
                 });
 
+                clearInterval(progressInterval);
+                console.log('Response status:', response.status);
+                
                 if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(`API Error: ${errorData.error || response.statusText}`);
+                    const errorText = await response.text();
+                    console.error('API Error Response:', errorText);
+                    throw new Error(`API Error (${response.status}): ${errorText}`);
                 }
 
                 const result = await response.json();
+                console.log('API Response:', result);
                 
                 if (result.content || result.choices?.[0]?.message?.content) {
-                    // Handle both custom API response and direct OpenAI response format
                     const content = result.content || result.choices[0].message.content;
-                    document.getElementById(outputId).textContent = content.trim();
+                    outputElement.textContent = content.trim();
                     document.getElementById(downloadId).style.display = 'inline-block';
                 } else {
+                    console.error('No content in response:', result);
                     throw new Error('No content received from API');
                 }
 
             } catch (error) {
+                clearInterval(progressInterval);
                 console.error('AI generation failed:', error);
-                document.getElementById(outputId).innerHTML = `🤖 AI temporarily unavailable. Using professional template instead...`;
+                outputElement.innerHTML = `🤖 AI Error: ${error.message}<br><br>Using professional template instead...`;
                 
                 setTimeout(() => {
                     generateWithTemplate(type, outputId, downloadId);
-                }, 2000);
+                }, 3000);
             }
         }
 
@@ -1680,15 +1767,27 @@
                 const applicantName = document.getElementById('applicantName').value;
                 const targetCompany = document.getElementById('targetCompany').value;
                 const targetRole = document.getElementById('targetRole').value;
+                const jobDescription = document.getElementById('jobDescription').value;
                 const relevantExperience = document.getElementById('relevantExperience').value;
                 const whyCompany = document.getElementById('whyCompany').value;
 
-                if (!applicantName || !targetCompany || !targetRole || !relevantExperience) {
-                    alert('Please fill in required fields');
+                if (!applicantName || !targetCompany || !targetRole || !jobDescription || !relevantExperience) {
+                    alert('Please fill in all required fields (marked with *)');
                     return null;
                 }
 
-                return `Create compelling cover letter for: Applicant: ${applicantName}, Company: ${targetCompany}, Role: ${targetRole}, Experience: ${relevantExperience}, Company Interest: ${whyCompany || 'Not specified'}. Make it persuasive and professional.`;
+                return `Create a compelling, tailored cover letter for: 
+                Applicant: ${applicantName}
+                Company: ${targetCompany}
+                Role: ${targetRole}
+                
+                Job Description: ${jobDescription}
+                
+                Candidate's Background: ${relevantExperience}
+                
+                Company Interest: ${whyCompany || 'Not specified'}
+                
+                Please tailor the cover letter specifically to match the job requirements, highlight relevant experience that aligns with the job description, and make it persuasive and professional. Include specific examples that demonstrate fit for this exact role.`;
 
             } else if (type === 'linkedin') {
                 const linkedinName = document.getElementById('linkedinName').value;
@@ -1716,15 +1815,30 @@
                 return `Analyze ATS compatibility of resume: ${resumeContent}. ${targetJobDescription ? `Compare against job: ${targetJobDescription}` : ''}. Provide detailed scoring and improvement recommendations.`;
 
             } else if (type === 'match') {
-                const matchResumeContent = document.getElementById('matchResumeContent').value;
                 const matchJobDescription = document.getElementById('matchJobDescription').value;
+                const matchResumeContent = document.getElementById('matchResumeContent').value;
 
-                if (!matchResumeContent || !matchJobDescription) {
-                    alert('Please fill in both resume and job description');
+                if (!matchJobDescription || !matchResumeContent) {
+                    alert('Please fill in both the job description and your resume content');
                     return null;
                 }
 
-                return `Analyze match between resume: ${matchResumeContent} and job description: ${matchJobDescription}. Provide match percentage, gap analysis, and improvement suggestions.`;
+                return `Analyze the match between this resume and job description. Provide a detailed match percentage, gap analysis, and specific improvement recommendations.
+
+                JOB DESCRIPTION:
+                ${matchJobDescription}
+                
+                RESUME CONTENT:
+                ${matchResumeContent}
+                
+                Please provide:
+                1. Overall match percentage (0-100%)
+                2. Keyword match analysis
+                3. Skills gap identification
+                4. Missing qualifications
+                5. Strengths that align well
+                6. Specific recommendations to improve the match
+                7. Suggested resume modifications`;
 
             } else if (type === 'careerInterview') {
                 const interviewJobTitle = document.getElementById('interviewJobTitle').value;
