@@ -5,62 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Outnovately AI - Complete Workplace Platform</title>
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23a855f7' stroke='%23ffffff' stroke-width='2'/><circle cx='35' cy='40' r='3' fill='%23ffffff'/><circle cx='65' cy='40' r='3' fill='%23ffffff'/><path d='M30 60 Q50 70 70 60' stroke='%23ffffff' stroke-width='2' fill='none'/><circle cx='20' cy='30' r='2' fill='%23ffffff'/><circle cx='80' cy='30' r='2' fill='%23ffffff'/><line x1='22' y1='30' x2='33' y2='38' stroke='%23ffffff'/><line x1='78' y1='30' x2='67' y2='38' stroke='%23ffffff'/></svg>">
-   /* Mobile App-Style Design */
-        @media (max-width: 768px) {
-            body {
-                margin: 0;
-                padding: 0;
-            }
-            
-            .container { 
-                padding: 0;
-                min-height: 100vh;
-            }
-            
-            /* App-style navigation */
-            .nav {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: rgba(15, 15, 35, 0.95);
-                backdrop-filter: blur(20px);
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 10px 5px 25px 5px;
-                display: flex;
-                justify-content: space-around;
-                z-index: 1000;
-                box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
-            }
-            
-            .nav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 8px 12px;
-                border-radius: 12px;
-                font-size: 0.7rem;
-                font-weight: 600;
-                min-width: 60px;
-            }
-            
-            .tools-grid { 
-                grid-template-columns: 1fr;
-                gap: 15px;
-                margin: 20px 15px 100px 15px;
-            }
-            
-            .tool-card { 
-                padding: 20px;
-                border-radius: 20px;
-            }
-            
-            .modal-content { 
-                width: 95%;
-                margin: 5% auto;
-                padding: 20px;
-                border-radius: 20px;
-            }
         }
     <style>
         * {
@@ -911,6 +855,70 @@ html {
                 font-size: 1.6rem;
             }
         }
+        .about-title {
+            font-size: 1.6rem;
+        }
+    }
+    
+    /* Mobile App-Style Design */
+    @media (max-width: 768px) {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container { 
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 5px 25px 5px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            min-width: 60px;
+        }
+        
+        .tools-grid { 
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 15px 100px 15px;
+        }
+        
+        .tool-card { 
+            padding: 20px;
+            border-radius: 20px;
+        }
+        
+        .modal-content { 
+            width: 95%;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 20px;
+        }
+    }
+</style>
+</head>
+<body>
     </style>
 </head>
 <body>
