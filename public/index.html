@@ -3140,6 +3140,18 @@ html {
                 }
             }, 500);
         });
+        // Homepage integration - detect modal from URL hash
+window.addEventListener('load', function() {
+    const hash = window.location.hash.substring(1);
+    console.log('URL hash detected:', hash);
+    
+    if (hash && document.getElementById(hash)) {
+        console.log('Opening modal:', hash);
+        setTimeout(() => {
+            handleToolClick(hash);
+        }, 1500);
+    }
+});
     </script>
 </body>
 </html>
