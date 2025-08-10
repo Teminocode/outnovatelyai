@@ -645,13 +645,14 @@
         <div class="nav-container">
             <div class="logo">Outnovately</div>
             <div class="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#hr-suite" class="nav-link">HR Suite</a>
-                <a href="#career-suite" class="nav-link">Career Suite</a>
-                <a href="#about" class="nav-link">About</a>
-                <button class="cta-nav-btn" onclick="alert('Connect to your auth system!')">Start Free Trial</button>
-            </div>
+    <a href="#home" class="nav-link">Home</a>
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#hr-suite" class="nav-link">HR Suite</a>
+    <a href="#career-suite" class="nav-link">Career Suite</a>
+    <a href="#ats-suite" class="nav-link">ATS Platform</a>
+    <a href="#about" class="nav-link">About</a>
+    <button class="cta-nav-btn" onclick="redirectToAuth()">Start Free Trial</button>
+</div>
         </div>
     </nav>
 
@@ -777,7 +778,184 @@
                 </div>
             </div>
         </section>
+<!-- ADD THIS ENTIRE SECTION TO YOUR HOMEPAGE -->
+<!-- Put this right after your existing features section and before career-suite -->
 
+<section id="ats-suite" class="suite-section ats-suite">
+    <div class="section">
+        <div class="suite-header">
+            <div>
+                <div class="suite-badge">Complete ATS Platform</div>
+                <h2 class="suite-title">All-in-One Applicant Tracking System</h2>
+                <p class="suite-subtitle">
+                    Transform your hiring process with AI-powered candidate management, from job posting to onboarding. Compete with expensive ATS systems at a fraction of the cost.
+                </p>
+                <a href="tools.html#ats-dashboard" class="cta-primary">Launch ATS Platform</a>
+            </div>
+            
+            <div class="suite-metrics">
+                <div class="metric-item">
+                    <div class="metric-number">80%</div>
+                    <div class="metric-label">Faster Hiring Process</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">$500+</div>
+                    <div class="metric-label">Monthly Savings vs Competitors</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-number">95%</div>
+                    <div class="metric-label">User Satisfaction</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📋</div>
+                    <div class="tool-title">Job Posting Dashboard</div>
+                </div>
+                <p class="tool-description">
+                    Create, approve, and manage job postings. Auto-publish to your careers page and integrate with job boards like Indeed and LinkedIn.
+                </p>
+                <ul class="tool-features">
+                    <li>AI-powered job description generation</li>
+                    <li>ATS-optimized posting format</li>
+                    <li>Multi-platform publishing</li>
+                    <li>Application tracking and analytics</li>
+                </ul>
+                <button class="tool-btn" onclick="window.location.href='tools.html#job-dashboard'">Manage Jobs</button>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-title">Candidate Pipeline Board</div>
+                </div>
+                <p class="tool-description">
+                    Visual Kanban board to track candidates through your hiring process. Drag-and-drop interface with automated status updates.
+                </p>
+                <ul class="tool-features">
+                    <li>Applied → Shortlist → Interview → Offer → Hired</li>
+                    <li>Drag-and-drop candidate movement</li>
+                    <li>Bulk actions and email campaigns</li>
+                    <li>Stage-based automation triggers</li>
+                </ul>
+                <button class="tool-btn" onclick="window.location.href='tools.html#pipeline-board'">View Pipeline</button>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🤖</div>
+                    <div class="tool-title">AI Resume Parser</div>
+                </div>
+                <p class="tool-description">
+                    Automatically extract and structure candidate information from resumes. AI analysis provides match scoring and recommendations.
+                </p>
+                <ul class="tool-features">
+                    <li>Parse PDF, DOC, and DOCX files</li>
+                    <li>Extract skills, experience, education</li>
+                    <li>AI-powered job match scoring</li>
+                    <li>Structured candidate profiles</li>
+                </ul>
+                <button class="tool-btn" onclick="window.location.href='tools.html#resume-parser'">Parse Resumes</button>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-title">Smart Candidate Search</div>
+                </div>
+                <p class="tool-description">
+                    Advanced search with AI relevance scoring. Filter by skills, location, experience level, and get AI-powered candidate recommendations.
+                </p>
+                <ul class="tool-features">
+                    <li>Keyword and semantic search</li>
+                    <li>Advanced filtering options</li>
+                    <li>AI relevance scoring</li>
+                    <li>Talent pool management</li>
+                </ul>
+                <button class="tool-btn" onclick="window.location.href='tools.html#candidate-search'">Search Candidates</button>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📧</div>
+                    <div class="tool-title">Communication Hub</div>
+                </div>
+                <p class="tool-description">
+                    Automated email templates and campaigns. Send personalized messages with stage-change triggers and bulk communication tools.
+                </p>
+                <ul class="tool-features">
+                    <li>Pre-built email templates</li>
+                    <li>Automated trigger emails</li>
+                    <li>Bulk candidate messaging</li>
+                    <li>Communication history tracking</li>
+                </ul>
+                <button class="tool-btn" onclick="window.location.href='tools.html#communication-hub'">Send Emails</button>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">📈</div>
+                    <div class="tool-title">Hiring Analytics</div>
+                </div>
+                <p class="tool-description">
+                    Track your hiring performance with detailed analytics. Monitor time-to-hire, conversion rates, and pipeline effectiveness.
+                </p>
+                <ul class="tool-features">
+                    <li>Hiring funnel analytics</li>
+                    <li>Time-to-hire metrics</li>
+                    <li>Source effectiveness tracking</li>
+                    <li>Custom reporting dashboards</li>
+                </ul>
+                <button class="tool-btn" onclick="window.location.href='tools.html#hiring-analytics'">View Analytics</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ADD THE CSS BELOW TO YOUR EXISTING STYLE SECTION -->
+<style>
+/* ATS Suite Specific Styles - Add this to your existing <style> section */
+.ats-suite {
+    background: linear-gradient(135deg, rgba(76, 201, 196, 0.1), rgba(68, 160, 141, 0.1));
+}
+
+.ats-suite .suite-badge {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+}
+
+.ats-suite .tool-card:hover {
+    border-color: rgba(76, 201, 196, 0.3);
+    box-shadow: 0 25px 50px rgba(76, 201, 196, 0.2);
+}
+
+.ats-suite .tool-card::before {
+    background: linear-gradient(135deg, transparent 0%, rgba(76, 201, 196, 0.05) 100%);
+}
+
+.ats-suite .tool-btn {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    box-shadow: 0 8px 32px rgba(76, 201, 196, 0.3);
+}
+
+.ats-suite .tool-btn:hover {
+    box-shadow: 0 12px 40px rgba(76, 201, 196, 0.4);
+}
+
+.ats-suite .tool-icon {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+</style>
         <section id="career-suite" class="suite-section career-suite">
             <div class="section">
                 <div class="suite-header">
