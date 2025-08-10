@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outnovately AI Tools | HR & Career Platform</title>
+    <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFkSURBVDiNpZM9SwNBEIafgwQSCxsLwcJCG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLG1sLGwAAAABJRU5ErkJggg==">
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+
+    <!-- Initialize Firebase (replace with your project's configuration) -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAK1T0DUI5akQ_yyGQfljRQlrc6if_Cyws",
+            authDomain: "outnovately-ai.firebaseapp.com",
+            projectId: "outnovately-ai",
+            storageBucket: "outnovately-ai.firebasestorage.app",
+            messagingSenderId: "908525845335",
+            appId: "1:908525845335:web:c977c167df9a7b1d575c12",
+            measurementId: "G-46NFL0D3T1"
+        };
+        // Initialize Firebase only if it hasn't been initialized
+        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+            if (firebase.analytics) {
+                firebase.analytics();
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0d1b2a 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a855f7 0%, #4ecdc4 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .header-nav a:hover {
+            color: #4ecdc4;
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .auth-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #4ecdc4 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #a855f7;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-item.active {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(76, 201, 196, 0.2));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .tool-icon {
+            font-size: 1.25rem;
+        }
+
+        .tool-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        /* Main Content Area */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+        }
+
+        /* Workspace */
+        .workspace {
+            flex: 1;
+            display: flex;
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .form-panel {
+            width: 40%;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .output-panel {
+            width: 60%;
+            background: white;
+            color: #333;
+            padding: 2rem;
+            overflow-y: auto;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 0.875rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #a855f7;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #a855f7 0%, #4ecdc4 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .output-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .output-controls .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            border-top-color: #a855f7;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            color: #666;
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+                display: flex;
+                gap: 1rem;
+                overflow-x: auto;
+                padding: 1rem;
+            }
+
+            .sidebar-section {
+                margin-bottom: 0;
+                min-width: 200px;
+            }
+
+            .workspace {
+                flex-direction: column;
+            }
+
+            .form-panel,
+            .output-panel {
+                width: 100%;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tool specific styles */
+        .tool-content {
+            display: none;
+        }
+
+        .tool-content.active {
+            display: block;
+        }
+
+        /* Dashboard stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ecdc4;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Outnovately AI</div>
+        
+        <nav class="header-nav">
+            <a href="index.html">Home</a>
+            <a href="#tools">Tools</a>
+            <a href="index.html#about">About</a>
+        </nav>
+
+        <div class="auth-section">
+            <div id="userInfo" class="user-info" style="display: none;">
+                <img id="userAvatar" class="user-avatar" src="" alt="User">
+                <span id="userName"></span>
+                <button class="auth-btn" onclick="signOut()">Sign Out</button>
+            </div>
+            <button id="signInBtn" class="auth-btn" onclick="showAuthModal()">Sign In</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">HR Tools</div>
+                <div class="tool-item active" onclick="switchTool('jobDescription')">
+                    <span class="tool-icon">📝</span>
+                    <span class="tool-name">Job Description</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('interviewQuestions')">
+                    <span class="tool-icon">❓</span>
+                    <span class="tool-name">Interview Questions</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('candidateScreening')">
+                    <span class="tool-icon">🔍</span>
+                    <span class="tool-name">Candidate Screening</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('onboarding')">
+                    <span class="tool-icon">🎯</span>
+                    <span class="tool-name">Employee Onboarding</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('performance')">
+                    <span class="tool-icon">⭐</span>
+                    <span class="tool-name">Performance Review</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('policy')">
+                    <span class="tool-icon">📋</span>
+                    <span class="tool-name">HR Policy</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Career Tools</div>
+                <div class="tool-item" onclick="switchTool('resume')">
+                    <span class="tool-icon">📄</span>
+                    <span class="tool-name">AI Resume</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('coverLetter')">
+                    <span class="tool-icon">💌</span>
+                    <span class="tool-name">Cover Letter</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('linkedin')">
+                    <span class="tool-icon">💼</span>
+                    <span class="tool-name">LinkedIn Profile</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('atsScorer')">
+                    <span class="tool-icon">🎯</span>
+                    <span class="tool-name">ATS Scorer</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('jobMatch')">
+                    <span class="tool-icon">🔍</span>
+                    <span class="tool-name">Job Match</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('interviewPrep')">
+                    <span class="tool-icon">🎤</span>
+                    <span class="tool-name">Interview Prep</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">ATS Platform</div>
+                <div class="tool-item" onclick="switchTool('atsDashboard')">
+                    <span class="tool-icon">📊</span>
+                    <span class="tool-name">Dashboard</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('candidateManagement')">
+                    <span class="tool-icon">👥</span>
+                    <span class="tool-name">Candidates</span>
+                </div>
+                <div class="tool-item" onclick="switchTool('jobManagement')">
+                    <span class="tool-icon">📋</span>
+                    <span class="tool-name">Job Management</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="content-area">
+            <!-- Job Description Tool -->
+            <div id="jobDescription" class="tool-content active">
+                <div class="content-header">
+                    <h1 class="content-title">Job Description Generator</h1>
+                    <p class="content-description">Create comprehensive, ATS-optimized job postings with AI personalization</p>
+                </div>
+                
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title *</label>
+                            <input type="text" id="jobTitle" placeholder="e.g., Senior Marketing Manager">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <input type="text" id="department" placeholder="e.g., Marketing">
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company Name</label>
+                                <input type="text" id="company" placeholder="Your Organization">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobSkills">Key Skills & Requirements *</label>
+                            <textarea id="jobSkills" rows="4" placeholder="List the most important skills and qualifications..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobLocation">Location</label>
+                            <input type="text" id="jobLocation" placeholder="Remote, NYC, Hybrid">
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('jobDescription', 'ai')">
+                                🤖 Generate with AI
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateContent('jobDescription', 'template')">
+                                📋 Use Template
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearForm('jobDescription')">
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('jobDescription')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('jobDescription')">📋 Copy</button>
+                        </div>
+                        <div id="jobDescriptionOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">📝</div>
+                                <h3>Ready to Create</h3>
+                                <p>Fill out the form and click "Generate with AI" to create your job description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resume Tool -->
+            <div id="resume" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">AI Resume Generator</h1>
+                    <p class="content-description">Create professional, ATS-optimized resumes tailored to your target job</p>
+                </div>
+                
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" placeholder="e.g., Sarah Johnson">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="targetJob">Target Job Title *</label>
+                                <input type="text" id="targetJob" placeholder="e.g., Senior Software Engineer">
+                            </div>
+                            <div class="form-group">
+                                <label for="industry">Industry</label>
+                                <select id="industry">
+                                    <option value="">Select Industry</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">Professional Experience *</label>
+                            <textarea id="experience" rows="4" placeholder="Describe your work experience and achievements..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="education">Education</label>
+                            <input type="text" id="education" placeholder="e.g., Bachelor's in Computer Science">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="skills">Key Skills *</label>
+                            <textarea id="skills" rows="3" placeholder="List your technical and soft skills..."></textarea>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('resume', 'ai')">
+                                🤖 Generate with AI
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateContent('resume', 'template')">
+                                📋 Use Template
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearForm('resume')">
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('resume')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('resume')">📋 Copy</button>
+                        </div>
+                        <div id="resumeOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">📄</div>
+                                <h3>Ready to Create</h3>
+                                <p>Fill out the form and click "Generate with AI" to create your resume</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATS Dashboard -->
+            <div id="atsDashboard" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">ATS Dashboard</h1>
+                    <p class="content-description">Complete applicant tracking system with AI-powered candidate management</p>
+                </div>
+                
+                <div style="padding: 2rem;">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Active Jobs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">247</div>
+                            <div class="stat-label">Total Candidates</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">18</div>
+                            <div class="stat-label">Pending Reviews</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">89%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="switchTool('jobManagement')">📝 Create Job</button>
+                        <button class="btn btn-primary" onclick="switchTool('candidateManagement')">👤 Add Candidate</button>
+                        <button class="btn btn-secondary" onclick="switchTool('candidateManagement'); setTimeout(() => openCandidateFeature('pipeline'), 200);">📊 View Pipeline</button>
+                        <button class="btn btn-secondary" onclick="switchTool('candidateManagement'); setTimeout(() => openCandidateFeature('communication'), 200);">📧 Send Emails</button>
+                        <button class="btn btn-secondary" onclick="editStats()">🛠️ Edit Stats</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interview Questions Tool -->
+            <div id="interviewQuestions" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Interview Questions Generator</h1>
+                    <p class="content-description">Generate role-specific interview questions with AI insights and proven frameworks</p>
+                </div>
+                
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="interviewPosition">Position Title *</label>
+                            <input type="text" id="interviewPosition" placeholder="e.g., Software Developer">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experienceLevel">Experience Level</label>
+                            <select id="experienceLevel">
+                                <option value="">Select Level</option>
+                                <option value="Junior">Junior (0-2 years)</option>
+                                <option value="Mid-level">Mid-level (3-5 years)</option>
+                                <option value="Senior">Senior (5+ years)</option>
+                                <option value="Lead">Lead/Manager</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="focusAreas">Skills to Assess *</label>
+                            <textarea id="focusAreas" rows="3" placeholder="What skills do you want to evaluate?"></textarea>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('interviewQuestions', 'ai')">
+                                🤖 Generate with AI
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateContent('interviewQuestions', 'template')">
+                                📋 Use Template
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearForm('interviewQuestions')">
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('interviewQuestions')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('interviewQuestions')">📋 Copy</button>
+                        </div>
+                        <div id="interviewQuestionsOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">❓</div>
+                                <h3>Ready to Create</h3>
+                                <p>Fill out the form and generate interview questions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cover Letter Tool -->
+            <div id="coverLetter" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Cover Letter Generator</h1>
+                    <p class="content-description">Generate compelling, personalized cover letters that showcase your value</p>
+                </div>
+                
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="applicantName">Your Name *</label>
+                            <input type="text" id="applicantName" placeholder="e.g., Sarah Johnson">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="targetCompany">Target Company *</label>
+                                <input type="text" id="targetCompany" placeholder="e.g., Microsoft">
+                            </div>
+                            <div class="form-group">
+                                <label for="targetRole">Target Role *</label>
+                                <input type="text" id="targetRole" placeholder="e.g., Product Manager">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="coverJobDescription">Job Description *</label>
+                            <textarea id="coverJobDescription" rows="4" placeholder="Paste the job description here..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="relevantExperience">Your Experience *</label>
+                            <textarea id="relevantExperience" rows="4" placeholder="Describe your relevant experience..."></textarea>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('coverLetter', 'ai')">
+                                🤖 Generate with AI
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateContent('coverLetter', 'template')">
+                                📋 Use Template
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearForm('coverLetter')">
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('coverLetter')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('coverLetter')">📋 Copy</button>
+                        </div>
+                        <div id="coverLetterOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">💌</div>
+                                <h3>Ready to Create</h3>
+                                <p>Fill out the form and generate your cover letter</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LinkedIn Profile Tool -->
+            <div id="linkedin" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">LinkedIn Profile Optimizer</h1>
+                    <p class="content-description">Optimize your LinkedIn profile with AI-crafted headlines and summaries</p>
+                </div>
+                
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="linkedinName">Your Name *</label>
+                            <input type="text" id="linkedinName" placeholder="e.g., Sarah Johnson">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentTitle">Current Title *</label>
+                                <input type="text" id="currentTitle" placeholder="e.g., Senior Software Engineer">
+                            </div>
+                            <div class="form-group">
+                                <label for="linkedinIndustry">Industry *</label>
+                                <input type="text" id="linkedinIndustry" placeholder="e.g., Technology">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="careerHighlights">Career Highlights *</label>
+                            <textarea id="careerHighlights" rows="4" placeholder="What are your biggest professional achievements?"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="careerGoals">Career Goals</label>
+                            <textarea id="careerGoals" rows="3" placeholder="What are you looking to achieve?"></textarea>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('linkedin', 'ai')">
+                                🤖 Optimize with AI
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateContent('linkedin', 'template')">
+                                📋 Use Template
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearForm('linkedin')">
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('linkedin')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('linkedin')">📋 Copy</button>
+                        </div>
+                        <div id="linkedinOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">💼</div>
+                                <h3>Ready to Optimize</h3>
+                                <p>Fill out the form and optimize your LinkedIn profile</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Management Tool -->
+            <div id="jobManagement" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Job Management</h1>
+                    <p class="content-description">Create and manage job postings with AI-powered optimization</p>
+                </div>
+                
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="jobMgmtTitle">Job Title *</label>
+                            <input type="text" id="jobMgmtTitle" placeholder="e.g., Senior Developer">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="jobMgmtDept">Department</label>
+                                <input type="text" id="jobMgmtDept" placeholder="e.g., Engineering">
+                            </div>
+                            <div class="form-group">
+                                <label for="jobMgmtLocation">Location</label>
+                                <input type="text" id="jobMgmtLocation" placeholder="Remote, NYC, etc.">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobMgmtType">Job Type</label>
+                            <select id="jobMgmtType">
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Internship">Internship</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobMgmtRequirements">Requirements *</label>
+                            <textarea id="jobMgmtRequirements" rows="4" placeholder="List key requirements..."></textarea>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('jobManagement', 'ai')">
+                                🤖 Create Job Posting
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateContent('jobManagement', 'template')">
+                                📋 Use Template
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearForm('jobManagement')">
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('jobManagement')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('jobManagement')">📋 Copy</button>
+                        </div>
+                        <div id="jobManagementOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">📋</div>
+                                <h3>Ready to Create</h3>
+                                <p>Fill out the form and create your job posting</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Candidate Management Tool -->
+            <div id="candidateManagement" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Candidate Management</h1>
+                    <p class="content-description">Add and manage candidates with AI-powered screening</p>
+                </div>
+                
+                <div style="padding: 2rem;">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Applied</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">Shortlisted</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">Interview</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">Offer</div>
+                        </div>
+                    </div>
+                    
+                    <div id="recentCandidates" style="background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1rem;">Recent Candidates</h3>
+                        <div id="recentCandidatesList" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <p style="opacity: 0.7;">No candidates added yet.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons" style="margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="openCandidateFeature('add')">👤 Add New Candidate</button>
+                        <button class="btn btn-secondary" onclick="openCandidateFeature('pipeline')">📊 View Pipeline</button>
+                        <button class="btn btn-secondary" onclick="openCandidateFeature('communication')">📧 Send Communication</button>
+                        <button class="btn btn-secondary" onclick="openCandidateFeature('search')">🔍 Search Candidates</button>
+                    </div>
+
+                    <!-- Dynamic content area for candidate features -->
+                    <div id="candidateFeatureContent" style="margin-top: 2rem;"></div>
+                </div>
+            </div>
+
+            <!-- Candidate Screening Tool -->
+            <div id="candidateScreening" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Candidate Screening</h1>
+                    <p class="content-description">Generate candidate screening summaries based on experience and notes</p>
+                </div>
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="candidateName">Candidate Name *</label>
+                            <input type="text" id="candidateName" placeholder="e.g., John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="candidateRole">Role Applied For *</label>
+                            <input type="text" id="candidateRole" placeholder="e.g., Software Engineer">
+                        </div>
+                        <div class="form-group">
+                            <label for="candidateExperience">Experience & Skills *</label>
+                            <textarea id="candidateExperience" rows="4" placeholder="Summarize relevant experience and skills..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="candidateNotes">Additional Notes</label>
+                            <textarea id="candidateNotes" rows="3" placeholder="Cultural fit, special considerations, etc."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('candidateScreening', 'ai')">🤖 Generate with AI</button>
+                            <button class="btn btn-secondary" onclick="generateContent('candidateScreening', 'template')">📋 Use Template</button>
+                            <button class="btn btn-secondary" onclick="clearForm('candidateScreening')">🗑️ Clear</button>
+                        </div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('candidateScreening')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('candidateScreening')">📋 Copy</button>
+                        </div>
+                        <div id="candidateScreeningOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">🔍</div>
+                                <h3>Ready to Evaluate</h3>
+                                <p>Fill out the form and generate a candidate screening summary</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Onboarding Tool -->
+            <div id="onboarding" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Employee Onboarding</h1>
+                    <p class="content-description">Create a personalized onboarding plan for new hires</p>
+                </div>
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="onboardingName">Employee Name *</label>
+                            <input type="text" id="onboardingName" placeholder="e.g., Jane Smith">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="onboardingStartDate">Start Date *</label>
+                                <input type="date" id="onboardingStartDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="onboardingRole">Role *</label>
+                                <input type="text" id="onboardingRole" placeholder="e.g., Marketing Manager">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="onboardingFocus">Key Focus Areas *</label>
+                            <textarea id="onboardingFocus" rows="4" placeholder="List areas to focus on during onboarding..."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('onboarding', 'ai')">🤖 Generate with AI</button>
+                            <button class="btn btn-secondary" onclick="generateContent('onboarding', 'template')">📋 Use Template</button>
+                            <button class="btn btn-secondary" onclick="clearForm('onboarding')">🗑️ Clear</button>
+                        </div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('onboarding')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('onboarding')">📋 Copy</button>
+                        </div>
+                        <div id="onboardingOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">🎯</div>
+                                <h3>Ready to Onboard</h3>
+                                <p>Fill out the form and generate an onboarding plan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Review Tool -->
+            <div id="performance" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Performance Review</h1>
+                    <p class="content-description">Draft balanced performance reviews highlighting achievements and areas for growth</p>
+                </div>
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="performanceName">Employee Name *</label>
+                            <input type="text" id="performanceName" placeholder="e.g., Michael Brown">
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewPeriod">Review Period *</label>
+                            <input type="text" id="reviewPeriod" placeholder="e.g., Q1 2025">
+                        </div>
+                        <div class="form-group">
+                            <label for="achievements">Key Achievements *</label>
+                            <textarea id="achievements" rows="3" placeholder="List major accomplishments..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="improvements">Areas for Improvement *</label>
+                            <textarea id="improvements" rows="3" placeholder="List areas for improvement..."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('performance', 'ai')">🤖 Generate with AI</button>
+                            <button class="btn btn-secondary" onclick="generateContent('performance', 'template')">📋 Use Template</button>
+                            <button class="btn btn-secondary" onclick="clearForm('performance')">🗑️ Clear</button>
+                        </div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('performance')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('performance')">📋 Copy</button>
+                        </div>
+                        <div id="performanceOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">⭐</div>
+                                <h3>Ready to Review</h3>
+                                <p>Fill out the form and generate a performance review</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HR Policy Builder Tool -->
+            <div id="policy" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">HR Policy Builder</h1>
+                    <p class="content-description">Draft comprehensive HR policies aligned with company values</p>
+                </div>
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="policyTopic">Policy Topic *</label>
+                            <input type="text" id="policyTopic" placeholder="e.g., Remote Work Policy">
+                        </div>
+                        <div class="form-group">
+                            <label for="policyPoints">Key Points *</label>
+                            <textarea id="policyPoints" rows="4" placeholder="List the main points and guidelines..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="policyNotes">Additional Notes</label>
+                            <textarea id="policyNotes" rows="3" placeholder="Any additional notes or context..."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('policy', 'ai')">🤖 Generate with AI</button>
+                            <button class="btn btn-secondary" onclick="generateContent('policy', 'template')">📋 Use Template</button>
+                            <button class="btn btn-secondary" onclick="clearForm('policy')">🗑️ Clear</button>
+                        </div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('policy')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('policy')">📋 Copy</button>
+                        </div>
+                        <div id="policyOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">📋</div>
+                                <h3>Ready to Draft</h3>
+                                <p>Fill out the form and draft your HR policy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATS Scorer Tool -->
+            <div id="atsScorer" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">ATS Scorer</h1>
+                    <p class="content-description">Evaluate resume and job description match with AI-generated scoring</p>
+                </div>
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="atsResumeText">Resume Text *</label>
+                            <textarea id="atsResumeText" rows="6" placeholder="Paste the candidate's resume here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="atsJobDesc">Job Description *</label>
+                            <textarea id="atsJobDesc" rows="6" placeholder="Paste the job description here..."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('atsScorer', 'ai')">🤖 Generate with AI</button>
+                            <button class="btn btn-secondary" onclick="generateContent('atsScorer', 'template')">📋 Use Template</button>
+                            <button class="btn btn-secondary" onclick="clearForm('atsScorer')">🗑️ Clear</button>
+                        </div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('atsScorer')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('atsScorer')">📋 Copy</button>
+                        </div>
+                        <div id="atsScorerOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">📊</div>
+                                <h3>Ready to Score</h3>
+                                <p>Fill out the form and evaluate the resume against the job description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Match Tool -->
+            <div id="jobMatch" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Job Match</h1>
+                    <p class="content-description">Find the best job matches for a candidate profile</p>
+                </div>
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="candidateProfile">Candidate Profile *</label>
+                            <textarea id="candidateProfile" rows="4" placeholder="Describe the candidate's experience, skills, and goals..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="desiredCriteria">Desired Job Criteria *</label>
+                            <textarea id="desiredCriteria" rows="4" placeholder="Describe desired job roles, industries, locations, etc..."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('jobMatch', 'ai')">🤖 Generate with AI</button>
+                            <button class="btn btn-secondary" onclick="generateContent('jobMatch', 'template')">📋 Use Template</button>
+                            <button class="btn btn-secondary" onclick="clearForm('jobMatch')">🗑️ Clear</button>
+                        </div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('jobMatch')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('jobMatch')">📋 Copy</button>
+                        </div>
+                        <div id="jobMatchOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">🔍</div>
+                                <h3>Ready to Explore</h3>
+                                <p>Fill out the form and discover job matches</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interview Prep Tool -->
+            <div id="interviewPrep" class="tool-content">
+                <div class="content-header">
+                    <h1 class="content-title">Interview Prep</h1>
+                    <p class="content-description">Prepare for interviews with tailored questions and company research</p>
+                </div>
+                <div class="workspace">
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label for="prepPosition">Position Title *</label>
+                            <input type="text" id="prepPosition" placeholder="e.g., Product Manager">
+                        </div>
+                        <div class="form-group">
+                            <label for="prepCompany">Company Name</label>
+                            <input type="text" id="prepCompany" placeholder="e.g., Acme Corp">
+                        </div>
+                        <div class="form-group">
+                            <label for="prepResponsibilities">Key Responsibilities *</label>
+                            <textarea id="prepResponsibilities" rows="4" placeholder="List key responsibilities from the job description..."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="generateContent('interviewPrep', 'ai')">🤖 Generate with AI</button>
+                            <button class="btn btn-secondary" onclick="generateContent('interviewPrep', 'template')">📋 Use Template</button>
+                            <button class="btn btn-secondary" onclick="clearForm('interviewPrep')">🗑️ Clear</button>
+                        </div>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-controls">
+                            <button class="btn btn-secondary" onclick="downloadContent('interviewPrep')">📥 Download</button>
+                            <button class="btn btn-secondary" onclick="copyContent('interviewPrep')">📋 Copy</button>
+                        </div>
+                        <div id="interviewPrepOutput" class="output-content">
+                            <div class="empty-state">
+                                <div class="icon">🎤</div>
+                                <h3>Ready to Prepare</h3>
+                                <p>Fill out the form and generate your interview prep guide</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let isDemoMode = true;
+        const API_ENDPOINT = '/api/generate';
+
+        // Candidate management data
+        const candidateData = [];
+
+        // Tool switching
+        function switchTool(toolName) {
+            // Remove active state from all sidebar items and hide all tool content sections
+            document.querySelectorAll('.tool-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.tool-content').forEach(content => content.classList.remove('active'));
+
+            // Determine which sidebar item should be active
+            let clickedItem;
+            try {
+                // When triggered by a click event, event.target is available
+                clickedItem = event?.target.closest('.tool-item');
+            } catch (err) {
+                clickedItem = null;
+            }
+            // Fallback: find the element whose onclick contains the tool name
+            if (!clickedItem) {
+                clickedItem = Array.from(document.querySelectorAll('.tool-item')).find(item => {
+                    const onclickAttr = item.getAttribute('onclick') || '';
+                    return onclickAttr.includes(`'${toolName}'`);
+                });
+            }
+            if (clickedItem) {
+                clickedItem.classList.add('active');
+            }
+
+            // Show the requested tool's content
+            const toolContent = document.getElementById(toolName);
+            if (toolContent) {
+                toolContent.classList.add('active');
+            }
+        }
+
+        // Content generation
+        async function generateContent(toolType, method) {
+            const outputElement = document.getElementById(toolType + 'Output');
+            
+            if (!currentUser && !isDemoMode) {
+                showAuthModal();
+                return;
+            }
+            
+            if (method === 'ai') {
+                const prompt = buildPrompt(toolType);
+                if (!prompt) return;
+                
+                outputElement.innerHTML = '<div class="loading"></div> Generating with AI...';
+                
+                try {
+                    const response = await fetch(API_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            prompt: prompt,
+                            type: toolType,
+                            model: 'gpt-4o-mini',
+                            max_tokens: 1200,
+                            temperature: 0.7
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error (${response.status})`);
+                    }
+
+                    const result = await response.json();
+                    const content = result.content || result.choices?.[0]?.message?.content;
+                    
+                    if (content) {
+                        outputElement.innerHTML = formatOutput(content);
+                    } else {
+                        throw new Error('No content received');
+                    }
+
+                } catch (error) {
+                    console.error('AI generation failed:', error);
+                    outputElement.innerHTML = `<p style="color: #ef4444;">AI generation failed: ${error.message}</p><p>Try using the template option instead.</p>`;
+                }
+            } else {
+                // Template generation
+                outputElement.innerHTML = getTemplate(toolType);
+            }
+        }
+
+        /**
+         * Candidate management feature renderer. Displays different forms or data
+         * views depending on the selected feature (add, pipeline, communication, search).
+         * @param {string} feature
+         */
+        function openCandidateFeature(feature) {
+            const container = document.getElementById('candidateFeatureContent');
+            if (!container) return;
+            container.innerHTML = '';
+            // Add candidate form
+            if (feature === 'add') {
+                container.innerHTML = `
+                    <h3 style="margin-bottom:1rem;">Add New Candidate</h3>
+                    <div class="form-group">
+                        <label for="newCandidateName">Candidate Name *</label>
+                        <input type="text" id="newCandidateName" placeholder="e.g., Jane Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="newCandidateEmail">Email *</label>
+                        <input type="email" id="newCandidateEmail" placeholder="e.g., jane@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="newCandidateRole">Role Applied</label>
+                        <input type="text" id="newCandidateRole" placeholder="e.g., Product Manager">
+                    </div>
+                    <div class="form-group">
+                        <label for="newCandidateExperience">Experience & Skills</label>
+                        <textarea id="newCandidateExperience" rows="3" placeholder="Summarize relevant experience and skills..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveCandidate()">💾 Save Candidate</button>
+                `;
+            }
+            // Pipeline overview
+            else if (feature === 'pipeline') {
+                // Compute counts by status
+                const counts = {};
+                candidateData.forEach(c => {
+                    counts[c.status] = (counts[c.status] || 0) + 1;
+                });
+                let overview = '<h3 style="margin-bottom:1rem;">Candidate Pipeline Overview</h3>';
+                if (Object.keys(counts).length === 0) {
+                    overview += '<p style="opacity:0.7;">No candidates added yet.</p>';
+                } else {
+                    overview += '<ul style="list-style: none; padding-left:0;">';
+                    Object.keys(counts).forEach(status => {
+                        overview += `<li><strong>${status}</strong>: ${counts[status]}</li>`;
+                    });
+                    overview += '</ul>';
+                }
+                container.innerHTML = overview;
+            }
+            // Communication form
+            else if (feature === 'communication') {
+                container.innerHTML = `
+                    <h3 style="margin-bottom:1rem;">Send Communication</h3>
+                    <div class="form-group">
+                        <label for="commTo">To (Candidate Email) *</label>
+                        <input type="email" id="commTo" placeholder="e.g., jane@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="commSubject">Subject *</label>
+                        <input type="text" id="commSubject" placeholder="e.g., Interview Invitation">
+                    </div>
+                    <div class="form-group">
+                        <label for="commBody">Message *</label>
+                        <textarea id="commBody" rows="4" placeholder="Write your message..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="sendCommunication()">📧 Send</button>
+                `;
+            }
+            // Search form
+            else if (feature === 'search') {
+                container.innerHTML = `
+                    <h3 style="margin-bottom:1rem;">Search Candidates</h3>
+                    <div class="form-group">
+                        <label for="searchQuery">Candidate Name</label>
+                        <input type="text" id="searchQuery" placeholder="Enter candidate name" oninput="searchCandidates()">
+                    </div>
+                    <div id="searchResults" style="margin-top:1rem;"></div>
+                `;
+            }
+        }
+
+        /**
+         * Save a new candidate. Validates required fields and appends
+         * the candidate to candidateData. Updates the recent candidates list.
+         */
+        function saveCandidate() {
+            const name = document.getElementById('newCandidateName').value.trim();
+            const email = document.getElementById('newCandidateEmail').value.trim();
+            const role = document.getElementById('newCandidateRole').value.trim();
+            const experience = document.getElementById('newCandidateExperience').value.trim();
+            if (!name || !email) {
+                alert('Please provide at least a name and email for the candidate.');
+                return;
+            }
+            const newCandidate = {
+                name: name,
+                role: role || 'Unknown Role',
+                status: 'Applied',
+                email: email,
+                experience: experience
+            };
+            candidateData.push(newCandidate);
+            // Append to recent candidates list
+            const listContainer = document.getElementById('recentCandidatesList');
+            if (listContainer) {
+                // Remove the placeholder message if present
+                const placeholder = listContainer.querySelector('p');
+                if (placeholder) placeholder.remove();
+                const card = document.createElement('div');
+                card.style.background = 'rgba(255,255,255,0.05)';
+                card.style.padding = '1rem';
+                card.style.borderRadius = '8px';
+                card.innerHTML = `<strong>${newCandidate.name}</strong> - ${newCandidate.role}<br><small style="opacity:0.7;">Added just now • Status: ${newCandidate.status}</small>`;
+                listContainer.appendChild(card);
+            }
+            showNotification('Candidate added successfully');
+            // Clear the form
+            openCandidateFeature('add');
+        }
+
+        /**
+         * Search candidates by name and display matches in the searchResults container.
+         */
+        function searchCandidates() {
+            const queryInput = document.getElementById('searchQuery');
+            const resultsContainer = document.getElementById('searchResults');
+            if (!resultsContainer || !queryInput) return;
+            const query = queryInput.value.trim().toLowerCase();
+            if (!query) {
+                resultsContainer.innerHTML = '<p style="opacity:0.7;">Enter a name to search.</p>';
+                return;
+            }
+            const matches = candidateData.filter(c => c.name.toLowerCase().includes(query));
+            if (matches.length === 0) {
+                resultsContainer.innerHTML = '<p style="opacity:0.7;">No matching candidates found.</p>';
+            } else {
+                let html = '';
+                matches.forEach(c => {
+                    html += `<div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;"><strong>${c.name}</strong> - ${c.role}<br><small style="opacity:0.7;">Status: ${c.status}</small></div>`;
+                });
+                resultsContainer.innerHTML = html;
+            }
+        }
+
+        /**
+         * Simulate sending a communication to a candidate. Validates inputs and
+         * displays a success message.
+         */
+        function sendCommunication() {
+            const to = document.getElementById('commTo').value.trim();
+            const subject = document.getElementById('commSubject').value.trim();
+            const body = document.getElementById('commBody').value.trim();
+            if (!to || !subject || !body) {
+                alert('Please fill in all fields before sending.');
+                return;
+            }
+            showNotification(`Message sent to ${to}`);
+            // Reset the form
+            openCandidateFeature('communication');
+        }
+
+        /**
+         * Allow manual editing of ATS dashboard statistics via prompt dialogs.
+         */
+        function editStats() {
+            const stats = [
+                { selector: '#atsDashboard .stat-card:nth-child(1) .stat-number', label: 'Active Jobs', isPercent: false },
+                { selector: '#atsDashboard .stat-card:nth-child(2) .stat-number', label: 'Total Candidates', isPercent: false },
+                { selector: '#atsDashboard .stat-card:nth-child(3) .stat-number', label: 'Pending Reviews', isPercent: false },
+                { selector: '#atsDashboard .stat-card:nth-child(4) .stat-number', label: 'Success Rate', isPercent: true }
+            ];
+            stats.forEach(stat => {
+                const element = document.querySelector(stat.selector);
+                if (!element) return;
+                const current = element.textContent.replace('%','');
+                const value = prompt(`Enter new value for ${stat.label}:`, current);
+                if (value !== null && value.trim() !== '') {
+                    element.textContent = stat.isPercent ? value.replace(/%$/, '') + '%' : value;
+                }
+            });
+        }
+
+        // Build prompts for different tools
+        function buildPrompt(toolType) {
+            if (toolType === 'jobDescription') {
+                const jobTitle = document.getElementById('jobTitle').value;
+                const department = document.getElementById('department').value;
+                const company = document.getElementById('company').value;
+                const skills = document.getElementById('jobSkills').value;
+                const location = document.getElementById('jobLocation').value;
+
+                if (!jobTitle || !skills) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+
+                return `Create a professional job description for: Job Title: ${jobTitle}, Company: ${company || 'Company'}, Department: ${department || 'Not specified'}, Location: ${location || 'Not specified'}, Required Skills: ${skills}. Include position overview, key responsibilities, required qualifications, preferred qualifications, and benefits.`;
+
+            } else if (toolType === 'resume') {
+                const fullName = document.getElementById('fullName').value;
+                const targetJob = document.getElementById('targetJob').value;
+                const industry = document.getElementById('industry').value;
+                const experience = document.getElementById('experience').value;
+                const education = document.getElementById('education').value;
+                const skills = document.getElementById('skills').value;
+
+                if (!fullName || !targetJob || !experience || !skills) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+
+                return `Create a professional, ATS-optimized resume for: Name: ${fullName}, Target Job: ${targetJob}, Industry: ${industry || 'Not specified'}, Experience: ${experience}, Skills: ${skills}, Education: ${education || 'Not specified'}. Format as a complete resume with clear sections.`;
+
+            } else if (toolType === 'interviewQuestions') {
+                const position = document.getElementById('interviewPosition').value;
+                const experienceLevel = document.getElementById('experienceLevel').value;
+                const focusAreas = document.getElementById('focusAreas').value;
+
+                if (!position || !focusAreas) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+
+                return `Generate comprehensive interview questions for: Position: ${position}, Experience Level: ${experienceLevel || 'Not specified'}, Skills to Assess: ${focusAreas}. Include behavioral, technical, and situational questions with STAR method framework.`;
+
+            } else if (toolType === 'coverLetter') {
+                const applicantName = document.getElementById('applicantName').value;
+                const targetCompany = document.getElementById('targetCompany').value;
+                const targetRole = document.getElementById('targetRole').value;
+                const jobDescription = document.getElementById('coverJobDescription').value;
+                const relevantExperience = document.getElementById('relevantExperience').value;
+
+                if (!applicantName || !targetCompany || !targetRole || !jobDescription || !relevantExperience) {
+                    alert('Please fill in all required fields');
+                    return null;
+                }
+
+                return `Create a compelling, tailored cover letter for: Applicant: ${applicantName}, Company: ${targetCompany}, Role: ${targetRole}, Job Description: ${jobDescription}, Candidate's Background: ${relevantExperience}. Make it persuasive and professional with specific examples.`;
+
+            } else if (toolType === 'linkedin') {
+                const linkedinName = document.getElementById('linkedinName').value;
+                const currentTitle = document.getElementById('currentTitle').value;
+                const linkedinIndustry = document.getElementById('linkedinIndustry').value;
+                const careerHighlights = document.getElementById('careerHighlights').value;
+                const careerGoals = document.getElementById('careerGoals').value;
+
+                if (!linkedinName || !currentTitle || !linkedinIndustry || !careerHighlights) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+
+                return `Optimize LinkedIn profile for: Name: ${linkedinName}, Title: ${currentTitle}, Industry: ${linkedinIndustry}, Highlights: ${careerHighlights}, Goals: ${careerGoals || 'Not specified'}. Create SEO-optimized headline and compelling summary.`;
+
+            } else if (toolType === 'jobManagement') {
+                const jobTitle = document.getElementById('jobMgmtTitle').value;
+                const department = document.getElementById('jobMgmtDept').value;
+                const location = document.getElementById('jobMgmtLocation').value;
+                const jobType = document.getElementById('jobMgmtType').value;
+                const requirements = document.getElementById('jobMgmtRequirements').value;
+
+                if (!jobTitle || !requirements) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+
+                return `Create a comprehensive job posting for: Job Title: ${jobTitle}, Department: ${department || 'Not specified'}, Location: ${location || 'Not specified'}, Job Type: ${jobType}, Requirements: ${requirements}. Include detailed description, responsibilities, and benefits.`;
+            }
+
+            // HR & ATS tools
+            else if (toolType === 'candidateScreening') {
+                const candidateName = document.getElementById('candidateName').value;
+                const candidateRole = document.getElementById('candidateRole').value;
+                const experience = document.getElementById('candidateExperience').value;
+                const notes = document.getElementById('candidateNotes').value;
+                if (!candidateName || !candidateRole || !experience) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+                return `Provide a candidate screening summary for ${candidateName} applying for the role of ${candidateRole}. Candidate experience and skills: ${experience}. Additional notes: ${notes || 'None'}. Summarize strengths, relevant experience, cultural fit, and any potential concerns.`;
+            } else if (toolType === 'onboarding') {
+                const name = document.getElementById('onboardingName').value;
+                const startDate = document.getElementById('onboardingStartDate').value;
+                const role = document.getElementById('onboardingRole').value;
+                const focus = document.getElementById('onboardingFocus').value;
+                if (!name || !startDate || !role || !focus) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+                return `Create a personalized onboarding plan for new hire ${name} starting on ${startDate} in the role of ${role}. Key focus areas: ${focus}. Include pre-start tasks, first-day agenda, first-week orientation, training roadmap, key milestones and recommended resources.`;
+            } else if (toolType === 'performance') {
+                const name = document.getElementById('performanceName').value;
+                const period = document.getElementById('reviewPeriod').value;
+                const achievements = document.getElementById('achievements').value;
+                const improvements = document.getElementById('improvements').value;
+                if (!name || !period || !achievements || !improvements) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+                return `Draft a performance review for ${name} covering the period ${period}. Achievements: ${achievements}. Areas for improvement: ${improvements}. Provide balanced feedback highlighting accomplishments, skill development needs, and actionable growth recommendations.`;
+            } else if (toolType === 'policy') {
+                const topic = document.getElementById('policyTopic').value;
+                const points = document.getElementById('policyPoints').value;
+                const notes = document.getElementById('policyNotes').value;
+                if (!topic || !points) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+                return `Draft a comprehensive HR policy on ${topic}. Key points: ${points}. Additional notes: ${notes || 'None'}. Ensure clarity, compliance with relevant laws, and alignment with company values. Include purpose, scope, definitions, responsibilities, procedures, and enforcement details.`;
+            } else if (toolType === 'atsScorer') {
+                const resumeText = document.getElementById('atsResumeText').value;
+                const jobDesc = document.getElementById('atsJobDesc').value;
+                if (!resumeText || !jobDesc) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+                return `Evaluate the resume against the provided job description. Resume: ${resumeText}. Job Description: ${jobDesc}. Provide an ATS match score from 0 to 100 with reasoning. Highlight missing qualifications and suggest improvements to increase the match.`;
+            } else if (toolType === 'jobMatch') {
+                const profile = document.getElementById('candidateProfile').value;
+                const criteria = document.getElementById('desiredCriteria').value;
+                if (!profile || !criteria) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+                return `Based on the candidate profile: ${profile} and desired job criteria: ${criteria}, recommend suitable job titles and industries. Explain why each recommendation is a good match and suggest ways to strengthen the candidate's fit.`;
+            } else if (toolType === 'interviewPrep') {
+                const position = document.getElementById('prepPosition').value;
+                const company = document.getElementById('prepCompany').value;
+                const responsibilities = document.getElementById('prepResponsibilities').value;
+                if (!position || !responsibilities) {
+                    alert('Please fill in required fields');
+                    return null;
+                }
+                return `Create a tailored interview preparation guide for the position of ${position} at ${company || 'the company'}. Key responsibilities: ${responsibilities}. Provide potential interview questions with model answers, research tips about the company, and strategies for candidates to showcase relevant experience.`;
+            }
+
+            return null;
+        }
+
+        // Format output for better readability
+        function formatOutput(content) {
+            return content
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/^/, '<p>')
+                .replace(/$/, '</p>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+        }
+
+        // Get template content
+        function getTemplate(toolType) {
+            const templates = {
+                jobDescription: `
+                    <h2>Job Title: [Position Name]</h2>
+                    
+                    <h3>Company Overview</h3>
+                    <p>[Company Name] is a leading organization in [Industry]. We are committed to [Company Mission/Values].</p>
+                    
+                    <h3>Position Overview</h3>
+                    <p>We are seeking a talented [Position Name] to join our [Department] team. The ideal candidate will have [Key Requirements].</p>
+                    
+                    <h3>Key Responsibilities</h3>
+                    <ul>
+                        <li>Responsibility 1</li>
+                        <li>Responsibility 2</li>
+                        <li>Responsibility 3</li>
+                        <li>Responsibility 4</li>
+                    </ul>
+                    
+                    <h3>Required Qualifications</h3>
+                    <ul>
+                        <li>Education requirement</li>
+                        <li>Experience requirement</li>
+                        <li>Technical skills</li>
+                        <li>Soft skills</li>
+                    </ul>
+                    
+                    <h3>Preferred Qualifications</h3>
+                    <ul>
+                        <li>Additional certifications</li>
+                        <li>Bonus experience</li>
+                        <li>Industry knowledge</li>
+                    </ul>
+                    
+                    <h3>Benefits</h3>
+                    <ul>
+                        <li>Competitive salary</li>
+                        <li>Health insurance</li>
+                        <li>Retirement plan</li>
+                        <li>Professional development</li>
+                    </ul>
+                `,
+                resume: `
+                    <h1>[Your Full Name]</h1>
+                    <p>[Your Email] | [Your Phone] | [Your Location] | [LinkedIn Profile]</p>
+                    
+                    <h2>Professional Summary</h2>
+                    <p>Results-driven professional with [X] years of experience in [Industry/Field]. Proven track record of [Key Achievement]. Seeking to leverage expertise in [Key Skills] to contribute to [Target Role] position.</p>
+                    
+                    <h2>Core Competencies</h2>
+                    <ul>
+                        <li>Technical Skill 1</li>
+                        <li>Technical Skill 2</li>
+                        <li>Soft Skill 1</li>
+                        <li>Soft Skill 2</li>
+                    </ul>
+                    
+                    <h2>Professional Experience</h2>
+                    <h3>[Job Title] | [Company Name] | [Dates]</h3>
+                    <ul>
+                        <li>Achievement-focused bullet point with metrics</li>
+                        <li>Action-oriented accomplishment</li>
+                        <li>Quantified result or improvement</li>
+                    </ul>
+                    
+                    <h2>Education</h2>
+                    <h3>[Degree] in [Field] | [University] | [Year]</h3>
+                    
+                    <h2>Certifications</h2>
+                    <ul>
+                        <li>[Certification Name] | [Issuing Organization] | [Year]</li>
+                    </ul>
+                `,
+                interviewQuestions: `
+                    <h1>Interview Questions for [Position]</h1>
+                    
+                    <h2>Behavioral Questions</h2>
+                    <ol>
+                        <li>Tell me about a time when you had to overcome a significant challenge at work.</li>
+                        <li>Describe a situation where you had to work with a difficult team member.</li>
+                        <li>Give me an example of when you had to learn something new quickly.</li>
+                        <li>Tell me about a time you failed and how you handled it.</li>
+                    </ol>
+                    
+                    <h2>Technical Questions</h2>
+                    <ol>
+                        <li>How would you approach [specific technical challenge]?</li>
+                        <li>What experience do you have with [relevant technology]?</li>
+                        <li>Walk me through your process for [job-specific task].</li>
+                        <li>How do you stay current with industry trends?</li>
+                    </ol>
+                    
+                    <h2>Situational Questions</h2>
+                    <ol>
+                        <li>How would you handle a situation where priorities change suddenly?</li>
+                        <li>What would you do if you disagreed with your manager's approach?</li>
+                        <li>How would you manage multiple competing deadlines?</li>
+                    </ol>
+                    
+                    <h2>STAR Method Framework</h2>
+                    <p><strong>Situation:</strong> Set the context<br>
+                    <strong>Task:</strong> Describe the challenge<br>
+                    <strong>Action:</strong> Explain what you did<br>
+                    <strong>Result:</strong> Share the outcome</p>
+                `,
+                coverLetter: `
+                    <p>[Your Name]<br>
+                    [Your Address]<br>
+                    [City, State ZIP Code]<br>
+                    [Your Email]<br>
+                    [Your Phone]</p>
+                    
+                    <p>[Date]</p>
+                    
+                    <p>[Hiring Manager's Name]<br>
+                    [Company Name]<br>
+                    [Company Address]</p>
+                    
+                    <p>Dear Hiring Manager,</p>
+                    
+                    <p>I am writing to express my strong interest in the [Position Title] role at [Company Name]. With [X years] of experience in [relevant field], I am excited about the opportunity to contribute to your team's success.</p>
+                    
+                    <p>In my previous role at [Previous Company], I [specific achievement or responsibility that relates to the job]. This experience has equipped me with [relevant skills] that directly align with your requirements for [specific job requirement].</p>
+                    
+                    <p>What particularly attracts me to [Company Name] is [specific reason related to company/role]. I am impressed by [company achievement/value] and would welcome the opportunity to contribute to [specific company goal/project].</p>
+                    
+                    <p>I have attached my resume for your review and would welcome the opportunity to discuss how my experience and enthusiasm can benefit your team. Thank you for your time and consideration.</p>
+                    
+                    <p>Sincerely,<br>
+                    [Your Name]</p>
+                `,
+                linkedin: `
+                    <h2>LinkedIn Headline</h2>
+                    <p>[Current Title] at [Company] | [Key Skill/Value Proposition] | [Industry Keywords]</p>
+                    
+                    <h2>LinkedIn Summary</h2>
+                    <p>I'm a [your profession] with [X years] of experience in [industry/field]. I specialize in [key areas of expertise] and have a proven track record of [key achievements].</p>
+                    
+                    <p>Throughout my career, I've [major accomplishment or experience]. I'm passionate about [what drives you professionally] and enjoy [relevant interests/activities].</p>
+                    
+                    <p>My core competencies include:</p>
+                    <ul>
+                        <li>[Skill 1]</li>
+                        <li>[Skill 2]</li>
+                        <li>[Skill 3]</li>
+                        <li>[Skill 4]</li>
+                    </ul>
+                    
+                    <p>I'm always interested in connecting with fellow professionals and exploring opportunities to [career goal]. Feel free to reach out if you'd like to discuss [relevant topic] or potential collaborations.</p>
+                    
+                    <h2>Experience Section Tips</h2>
+                    <ul>
+                        <li>Use action verbs and quantify achievements</li>
+                        <li>Include relevant keywords for your industry</li>
+                        <li>Focus on results and impact</li>
+                        <li>Keep descriptions concise but informative</li>
+                    </ul>
+                `,
+                jobManagement: `
+                    <h1>[Job Title]</h1>
+                    <p><strong>Department:</strong> [Department]<br>
+                    <strong>Location:</strong> [Location]<br>
+                    <strong>Job Type:</strong> [Full-time/Part-time/Contract]<br>
+                    <strong>Posted:</strong> [Date]</p>
+                    
+                    <h2>About the Role</h2>
+                    <p>We are seeking a [Job Title] to join our [Department] team. This role offers an exciting opportunity to [key opportunity/challenge].</p>
+                    
+                    <h2>Key Responsibilities</h2>
+                    <ul>
+                        <li>[Primary responsibility]</li>
+                        <li>[Secondary responsibility]</li>
+                        <li>[Additional responsibility]</li>
+                        <li>[Team/collaboration responsibility]</li>
+                    </ul>
+                    
+                    <h2>Required Qualifications</h2>
+                    <ul>
+                        <li>[Education requirement]</li>
+                        <li>[Experience requirement]</li>
+                        <li>[Technical skills]</li>
+                        <li>[Soft skills]</li>
+                    </ul>
+                    
+                    <h2>Preferred Qualifications</h2>
+                    <ul>
+                        <li>[Additional certifications]</li>
+                        <li>[Bonus experience]</li>
+                        <li>[Industry knowledge]</li>
+                    </ul>
+                    
+                    <h2>What We Offer</h2>
+                    <ul>
+                        <li>Competitive salary and benefits</li>
+                        <li>Professional development opportunities</li>
+                        <li>Collaborative work environment</li>
+                        <li>Work-life balance</li>
+                    </ul>
+                    
+                    <h2>How to Apply</h2>
+                    <p>Please submit your resume and cover letter. We are an equal opportunity employer committed to diversity and inclusion.</p>
+                `
+                ,candidateScreening: `
+                    <h2>Candidate Screening Summary</h2>
+                    <p><strong>Candidate Name:</strong> [Name]</p>
+                    <p><strong>Role Applied:</strong> [Role]</p>
+                    <p><strong>Experience & Skills:</strong> [Experience summary]</p>
+                    <p><strong>Notes:</strong> [Additional notes]</p>
+                    <h3>Strengths</h3>
+                    <p>- [Strength 1]<br>- [Strength 2]<br>- [Strength 3]</p>
+                    <h3>Concerns</h3>
+                    <p>- [Concern 1]<br>- [Concern 2]</p>
+                `,
+                onboarding: `
+                    <h2>Onboarding Plan for [Employee Name]</h2>
+                    <p><strong>Start Date:</strong> [Start Date]</p>
+                    <p><strong>Role:</strong> [Role]</p>
+                    <h3>Pre-Start Tasks</h3>
+                    <ul>
+                        <li>Complete new hire paperwork</li>
+                        <li>Set up accounts and equipment</li>
+                    </ul>
+                    <h3>First Day Agenda</h3>
+                    <ul>
+                        <li>Welcome meeting and office tour</li>
+                        <li>Meet the team</li>
+                    </ul>
+                    <h3>First Week Focus Areas</h3>
+                    <ul>
+                        <li>[Focus Area 1]</li>
+                        <li>[Focus Area 2]</li>
+                    </ul>
+                `,
+                performance: `
+                    <h2>Performance Review for [Employee Name]</h2>
+                    <p><strong>Review Period:</strong> [Period]</p>
+                    <h3>Achievements</h3>
+                    <ul>
+                        <li>[Achievement 1]</li>
+                        <li>[Achievement 2]</li>
+                    </ul>
+                    <h3>Areas for Improvement</h3>
+                    <ul>
+                        <li>[Improvement 1]</li>
+                        <li>[Improvement 2]</li>
+                    </ul>
+                    <h3>Recommendations</h3>
+                    <p>Provide actionable recommendations for growth and development.</p>
+                `,
+                policy: `
+                    <h2>[Policy Topic]</h2>
+                    <h3>Purpose</h3>
+                    <p>[State the purpose of the policy]</p>
+                    <h3>Scope</h3>
+                    <p>[Describe who the policy applies to]</p>
+                    <h3>Key Points</h3>
+                    <ul>
+                        <li>[Point 1]</li>
+                        <li>[Point 2]</li>
+                        <li>[Point 3]</li>
+                    </ul>
+                    <h3>Additional Notes</h3>
+                    <p>[Add any additional notes or clarifications]</p>
+                `,
+                atsScorer: `
+                    <h2>ATS Scoring Report</h2>
+                    <p><strong>Resume:</strong> [Resume overview]</p>
+                    <p><strong>Job Description:</strong> [Job description overview]</p>
+                    <p><strong>Match Score:</strong> [Score]/100</p>
+                    <h3>Highlights</h3>
+                    <p>[Key matches and strengths]</p>
+                    <h3>Improvements</h3>
+                    <p>[Areas where the resume can be improved]</p>
+                `,
+                jobMatch: `
+                    <h2>Job Match Recommendations</h2>
+                    <p><strong>Candidate Profile:</strong> [Candidate summary]</p>
+                    <p><strong>Desired Criteria:</strong> [Criteria summary]</p>
+                    <h3>Recommended Roles & Industries</h3>
+                    <ul>
+                        <li>[Role 1] — [Industry 1] (Why it's a good fit)</li>
+                        <li>[Role 2] — [Industry 2] (Why it's a good fit)</li>
+                    </ul>
+                    <h3>Next Steps</h3>
+                    <p>Suggestions for strengthening the candidate's profile and pursuing these roles.</p>
+                `,
+                interviewPrep: `
+                    <h2>Interview Preparation Guide</h2>
+                    <p><strong>Position:</strong> [Position]</p>
+                    <p><strong>Company:</strong> [Company]</p>
+                    <h3>Key Responsibilities</h3>
+                    <p>[Responsibilities summary]</p>
+                    <h3>Potential Interview Questions</h3>
+                    <ol>
+                        <li>Question 1</li>
+                        <li>Question 2</li>
+                        <li>Question 3</li>
+                    </ol>
+                    <h3>Research Tips</h3>
+                    <p>[Information about researching the company and role]</p>
+                    <h3>Preparation Strategies</h3>
+                    <p>[Tips on how to present experience and skills effectively]</p>
+                `
+            };
+            
+            return templates[toolType] || '<p>Template not available for this tool.</p>';
+        }
+
+        // Utility functions
+        function clearForm(toolType) {
+            const toolContent = document.getElementById(toolType);
+            const inputs = toolContent.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => input.value = '');
+            
+            const outputElement = document.getElementById(toolType + 'Output');
+            outputElement.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">✨</div>
+                    <h3>Form Cleared</h3>
+                    <p>Ready for new content generation</p>
+                </div>
+            `;
+        }
+
+        function downloadContent(toolType) {
+            const outputElement = document.getElementById(toolType + 'Output');
+            // Use innerText to preserve line breaks and convert any decorative bullets to dashes
+            let content = outputElement.innerText || '';
+            // Replace common bullet icons with simple dashes for better plain-text formatting
+            content = content.replace(/[•◆✔✔️🔹–—•]/g, '-');
+            
+            if (!content || content.includes('empty-state')) {
+                alert('No content to download. Please generate content first.');
+                return;
+            }
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${toolType}_${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function copyContent(toolType) {
+            const outputElement = document.getElementById(toolType + 'Output');
+            const content = outputElement.textContent || outputElement.innerText;
+            
+            if (!content || content.includes('empty-state')) {
+                alert('No content to copy. Please generate content first.');
+                return;
+            }
+            
+            navigator.clipboard.writeText(content).then(() => {
+                // Show temporary success message
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert('Copy failed. Please select and copy manually.');
+            });
+        }
+
+        // Authentication functions
+        /**
+         * Trigger a Firebase authentication flow. Uses Google as the provider.
+         * Requires the Google provider to be enabled in your Firebase console.
+         */
+        function showAuthModal() {
+            // Ensure Firebase is initialized
+            if (!firebase || !firebase.auth) {
+                alert('Firebase not initialized. Please check your configuration.');
+                return;
+            }
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    currentUser = {
+                        name: user.displayName || user.email || 'User',
+                        email: user.email || '',
+                        avatar: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}&background=a855f7&color=fff`
+                    };
+                    isDemoMode = false;
+                    updateAuthUI();
+                })
+                .catch((error) => {
+                    console.error('Sign-in failed:', error);
+                    alert('Sign-in failed. Please ensure Google sign-in is enabled in Firebase and try again.');
+                });
+        }
+
+        /**
+         * Sign the user out via Firebase. Clears currentUser and updates UI.
+         */
+        function signOut() {
+            if (firebase && firebase.auth) {
+                firebase.auth().signOut().then(() => {
+                    currentUser = null;
+                    isDemoMode = false;
+                    updateAuthUI();
+                }).catch((error) => {
+                    console.error('Sign-out failed:', error);
+                    alert('Error signing out. See console for details.');
+                });
+            } else {
+                currentUser = null;
+                updateAuthUI();
+            }
+        }
+
+        function updateAuthUI() {
+            const signInBtn = document.getElementById('signInBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+
+            if (currentUser) {
+                signInBtn.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.textContent = currentUser.name;
+                userAvatar.src = currentUser.avatar;
+            } else {
+                signInBtn.style.display = 'block';
+                userInfo.style.display = 'none';
+            }
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Outnovately AI Tools loaded');
+            
+            // Disable demo mode and require real sign-in
+            isDemoMode = false;
+            currentUser = null;
+
+            // If a user is already authenticated with Firebase, set currentUser
+            if (typeof firebase !== 'undefined' && firebase.auth) {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        currentUser = {
+                            name: user.displayName || user.email || 'User',
+                            email: user.email || '',
+                            avatar: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}&background=a855f7&color=fff`
+                        };
+                    } else {
+                        currentUser = null;
+                    }
+                    updateAuthUI();
+                });
+            } else {
+                // If Firebase is not available, just update UI normally
+                updateAuthUI();
+            }
+        });
+
+        // Handle URL hash for direct tool access
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                // Map hash to tool names
+                const toolMap = {
+                    'jobModal': 'jobDescription',
+                    'resumeModal': 'resume',
+                    'interviewQModal': 'interviewQuestions',
+                    'screeningModal': 'candidateScreening',
+                    'onboardingModal': 'onboarding',
+                    'performanceModal': 'performance',
+                    'policyModal': 'policy',
+                    'coverLetterModal': 'coverLetter',
+                    'linkedinModal': 'linkedin',
+                    'atsModal': 'atsScorer',
+                    'matchModal': 'jobMatch',
+                    'careerInterviewModal': 'interviewPrep',
+                    'ats-dashboard': 'atsDashboard',
+                    'quickJobModal': 'jobManagement',
+                    'quickCandidateModal': 'candidateManagement',
+                    'pipelineModal': 'candidateManagement',
+                    'communicationModal': 'candidateManagement',
+                    'searchModal': 'candidateManagement',
+                    'analyticsModal': 'atsDashboard'
+                };
+                
+                const toolName = toolMap[hash];
+                if (toolName) {
+                    setTimeout(() => {
+                        switchTool(toolName);
+                    }, 500);
+                }
+            }
+        });
+
+        // Add notification system
+        function showNotification(message, type = 'success') {
+            // Create notification element if it doesn't exist
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'};
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+                    z-index: 3000;
+                    transform: translateX(400px);
+                    transition: transform 0.3s ease;
+                    font-weight: 600;
+                `;
+                document.body.appendChild(notification);
+            }
+            
+            notification.textContent = message;
+            notification.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
