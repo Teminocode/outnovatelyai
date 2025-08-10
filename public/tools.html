@@ -942,7 +942,336 @@
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
+<!-- ADD THIS ENTIRE SECTION TO YOUR TOOLS.HTML FILE -->
+<!-- Put this right after the about-section and before the closing </div> of container -->
 
+<!-- ATS Dashboard Section -->
+<div id="ats-dashboard-section" class="section">
+    <div class="header">
+        <div class="main-title">ATS Dashboard</div>
+        <p class="subtitle">Complete Applicant Tracking System - Manage your entire hiring pipeline</p>
+        <div class="badge-container">
+            <div class="badge ats">🏢 Job Management</div>
+            <div class="badge ats">👥 Candidate Pipeline</div>
+            <div class="badge ats">🤖 AI Powered</div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="ats-stats">
+        <div class="stat-card">
+            <h3 id="totalJobs">0</h3>
+            <p>Active Jobs</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="totalCandidates">0</h3>
+            <p>Total Candidates</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="pendingReviews">0</h3>
+            <p>Pending Reviews</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="emailsSent">0</h3>
+            <p>Emails Sent</p>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="ats-quick-actions">
+        <button class="btn btn-ai" onclick="handleToolClick('quickJobModal')">
+            📝 Create Job Posting
+        </button>
+        <button class="btn" onclick="handleToolClick('quickCandidateModal')">
+            👤 Add Candidate
+        </button>
+        <button class="btn" onclick="handleToolClick('pipelineModal')">
+            📊 View Pipeline
+        </button>
+        <button class="btn" onclick="handleToolClick('communicationModal')">
+            📧 Send Emails
+        </button>
+        <button class="btn career" onclick="handleToolClick('searchModal')">
+            🔍 Search Candidates
+        </button>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="recent-activity">
+        <h3>Recent Activity</h3>
+        <div id="recentActivityList" class="activity-list">
+            <div class="activity-item">
+                <span class="activity-message">Welcome to your ATS Dashboard!</span>
+                <span class="activity-time">Start by creating your first job posting</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS FOR ATS FEATURES -->
+
+<!-- Quick Job Creation Modal -->
+<div id="quickJobModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('quickJobModal')">&times;</span>
+        <h2>📝 Create Job Posting</h2>
+        <p style="margin-bottom: 25px; opacity: 0.9;">
+            Create a new job posting with AI-generated descriptions and automatic formatting.
+        </p>
+        
+        <div class="form-group">
+            <label for="quickJobTitle">Job Title *</label>
+            <input type="text" id="quickJobTitle" placeholder="e.g., Senior Software Developer">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="quickDepartment">Department</label>
+                <input type="text" id="quickDepartment" placeholder="e.g., Engineering">
+            </div>
+            <div class="form-group">
+                <label for="quickLocation">Location</label>
+                <input type="text" id="quickLocation" placeholder="Remote, NYC, etc.">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="quickJobType">Job Type</label>
+            <select id="quickJobType">
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contract">Contract</option>
+                <option value="Internship">Internship</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="quickRequirements">Key Requirements *</label>
+            <textarea id="quickRequirements" rows="4" placeholder="List the main skills, experience, and qualifications needed..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="quickSalaryRange">Salary Range (Optional)</label>
+            <input type="text" id="quickSalaryRange" placeholder="e.g., $80,000 - $120,000">
+        </div>
+        
+        <button class="btn btn-ai" onclick="quickGenerateAndSaveJob()">
+            🤖 Generate & Save Job Posting
+        </button>
+        
+        <div id="jobCreationOutput" class="output-area" style="display: none;"></div>
+    </div>
+</div>
+
+<!-- Quick Candidate Add Modal -->
+<div id="quickCandidateModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('quickCandidateModal')">&times;</span>
+        <h2>👤 Add New Candidate</h2>
+        <p style="margin-bottom: 25px; opacity: 0.9;">
+            Add a candidate to your talent pipeline with optional resume upload and AI analysis.
+        </p>
+        
+        <div class="form-group">
+            <label for="quickCandidateName">Candidate Name *</label>
+            <input type="text" id="quickCandidateName" placeholder="John Doe">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="quickCandidateEmail">Email Address *</label>
+                <input type="email" id="quickCandidateEmail" placeholder="john@email.com">
+            </div>
+            <div class="form-group">
+                <label for="quickCandidatePhone">Phone Number</label>
+                <input type="text" id="quickCandidatePhone" placeholder="+1 (555) 123-4567">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="quickCandidateLocation">Location</label>
+            <input type="text" id="quickCandidateLocation" placeholder="City, State or Remote">
+        </div>
+        
+        <div class="form-group">
+            <label for="quickLinkedIn">LinkedIn Profile (Optional)</label>
+            <input type="url" id="quickLinkedIn" placeholder="https://linkedin.com/in/johndoe">
+        </div>
+        
+        <div class="form-group">
+            <label for="quickResumeFile">Resume Upload</label>
+            <input type="file" id="quickResumeFile" accept=".pdf,.doc,.docx,.txt">
+            <small style="opacity: 0.7;">Supports PDF, DOC, DOCX, and TXT files</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="quickCandidateNotes">Initial Notes</label>
+            <textarea id="quickCandidateNotes" rows="3" placeholder="Any initial observations or notes about the candidate..."></textarea>
+        </div>
+        
+        <button class="btn btn-ai" onclick="quickSaveCandidate()">
+            💾 Save Candidate
+        </button>
+        
+        <div id="candidateCreationOutput" class="output-area" style="display: none;"></div>
+    </div>
+</div>
+
+<!-- Pipeline View Modal -->
+<div id="pipelineModal" class="modal">
+    <div class="modal-content" style="max-width: 1000px;">
+        <span class="close" onclick="closeModal('pipelineModal')">&times;</span>
+        <h2>📊 Candidate Pipeline</h2>
+        <p style="margin-bottom: 25px; opacity: 0.9;">
+            Track candidates through your hiring process. Click and drag to move candidates between stages.
+        </p>
+        
+        <div class="pipeline-board">
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <h4>Applied <span class="candidate-count" id="appliedCount">0</span></h4>
+                </div>
+                <div class="column-content" id="appliedCandidates">
+                    <div class="empty-stage">No candidates yet</div>
+                </div>
+            </div>
+            
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <h4>Shortlisted <span class="candidate-count" id="shortlistedCount">0</span></h4>
+                </div>
+                <div class="column-content" id="shortlistedCandidates">
+                    <div class="empty-stage">No candidates yet</div>
+                </div>
+            </div>
+            
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <h4>Interview <span class="candidate-count" id="interviewCount">0</span></h4>
+                </div>
+                <div class="column-content" id="interviewCandidates">
+                    <div class="empty-stage">No candidates yet</div>
+                </div>
+            </div>
+            
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <h4>Offer <span class="candidate-count" id="offerCount">0</span></h4>
+                </div>
+                <div class="column-content" id="offerCandidates">
+                    <div class="empty-stage">No candidates yet</div>
+                </div>
+            </div>
+            
+            <div class="pipeline-column">
+                <div class="column-header">
+                    <h4>Hired <span class="candidate-count" id="hiredCount">0</span></h4>
+                </div>
+                <div class="column-content" id="hiredCandidates">
+                    <div class="empty-stage">No candidates yet</div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+            <button class="btn" onclick="loadPipelineData()">🔄 Refresh Pipeline</button>
+            <button class="btn career" onclick="closeModal('pipelineModal')">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Communication Modal -->
+<div id="communicationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('communicationModal')">&times;</span>
+        <h2>📧 Send Email to Candidates</h2>
+        <p style="margin-bottom: 25px; opacity: 0.9;">
+            Send personalized emails to candidates with pre-built templates or custom messages.
+        </p>
+        
+        <div class="form-group">
+            <label for="emailTemplate">Email Template</label>
+            <select id="emailTemplate" onchange="loadEmailTemplate()">
+                <option value="">Choose a template...</option>
+                <option value="application_received">Application Received</option>
+                <option value="interview_invitation">Interview Invitation</option>
+                <option value="application_update">Application Update</option>
+                <option value="rejection">Application Not Selected</option>
+                <option value="custom">Custom Email</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="emailRecipient">Send To</label>
+            <input type="email" id="emailRecipient" placeholder="candidate@email.com">
+            <small style="opacity: 0.7;">You can also select from your candidate list</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="emailSubject">Subject Line</label>
+            <input type="text" id="emailSubject" placeholder="Email subject">
+        </div>
+        
+        <div class="form-group">
+            <label for="emailMessage">Message</label>
+            <textarea id="emailMessage" rows="8" placeholder="Your email message..."></textarea>
+        </div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <button class="btn btn-ai" onclick="generateEmailWithAI()">🤖 Generate with AI</button>
+            <button class="btn" onclick="previewEmail()">👁️ Preview</button>
+            <button class="btn career" onclick="sendQuickEmail()">📤 Send Email</button>
+        </div>
+        
+        <div id="emailOutput" class="output-area" style="display: none;"></div>
+    </div>
+</div>
+
+<!-- Candidate Search Modal -->
+<div id="searchModal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <span class="close" onclick="closeModal('searchModal')">&times;</span>
+        <h2>🔍 Search Candidates</h2>
+        <p style="margin-bottom: 25px; opacity: 0.9;">
+            Find the perfect candidates using advanced filters and AI-powered search.
+        </p>
+        
+        <div class="form-group">
+            <label for="searchKeywords">Search Keywords</label>
+            <input type="text" id="searchKeywords" placeholder="Skills, job titles, company names...">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="searchLocation">Location</label>
+                <input type="text" id="searchLocation" placeholder="City, State, or Remote">
+            </div>
+            <div class="form-group">
+                <label for="searchExperience">Experience Level</label>
+                <select id="searchExperience">
+                    <option value="">Any Level</option>
+                    <option value="entry">Entry Level (0-2 years)</option>
+                    <option value="mid">Mid Level (3-5 years)</option>
+                    <option value="senior">Senior Level (5+ years)</option>
+                    <option value="lead">Lead/Manager</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="searchSkills">Required Skills</label>
+            <input type="text" id="searchSkills" placeholder="JavaScript, Python, Project Management...">
+        </div>
+        
+        <button class="btn btn-ai" onclick="performCandidateSearch()">
+            🔍 Search Candidates
+        </button>
+        
+        <div id="searchResults" class="output-area" style="display: none;">
+            <!-- Search results will appear here -->
+        </div>
+    </div>
+</div>
 /* Smooth Scroll Animation - Add this to your <style> section */
 html {
     scroll-behavior: smooth;
