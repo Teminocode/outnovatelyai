@@ -617,7 +617,103 @@
             <button id="signInBtn" class="auth-btn" onclick="showAuthModal()">Sign In</button>
         </div>
     </header>
+<div class="mobile-nav">
+    <!-- Back button (hidden by default) -->
+    <button class="mobile-back-btn" onclick="showMobileToolsMenu()">
+        <span>←</span> Back to Tools
+    </button>
 
+    <!-- Tab navigation -->
+    <div class="mobile-nav-tabs">
+        <button class="mobile-nav-tab active" onclick="showMobileSection('hr')">
+            HR Tools
+        </button>
+        <button class="mobile-nav-tab" onclick="showMobileSection('career')">
+            Career Tools  
+        </button>
+        <button class="mobile-nav-tab" onclick="showMobileSection('ats')">
+            ATS Platform
+        </button>
+    </div>
+
+    <!-- HR Tools Section -->
+    <div id="mobile-hr-tools" class="mobile-tools-section active">
+        <div class="mobile-tools-grid">
+            <div class="mobile-tool-card" onclick="openMobileTool('jobDescription')">
+                <span class="mobile-tool-icon">📝</span>
+                <div class="mobile-tool-name">Job Description</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('interviewQuestions')">
+                <span class="mobile-tool-icon">❓</span>
+                <div class="mobile-tool-name">Interview Questions</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('candidateScreening')">
+                <span class="mobile-tool-icon">🔍</span>
+                <div class="mobile-tool-name">Candidate Screening</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('onboarding')">
+                <span class="mobile-tool-icon">🎯</span>
+                <div class="mobile-tool-name">Employee Onboarding</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('performance')">
+                <span class="mobile-tool-icon">⭐</span>
+                <div class="mobile-tool-name">Performance Review</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('policy')">
+                <span class="mobile-tool-icon">📋</span>
+                <div class="mobile-tool-name">HR Policy</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Tools Section -->
+    <div id="mobile-career-tools" class="mobile-tools-section">
+        <div class="mobile-tools-grid">
+            <div class="mobile-tool-card" onclick="openMobileTool('resume')">
+                <span class="mobile-tool-icon">📄</span>
+                <div class="mobile-tool-name">AI Resume</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('coverLetter')">
+                <span class="mobile-tool-icon">💌</span>
+                <div class="mobile-tool-name">Cover Letter</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('linkedin')">
+                <span class="mobile-tool-icon">💼</span>
+                <div class="mobile-tool-name">LinkedIn Profile</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('atsScorer')">
+                <span class="mobile-tool-icon">🎯</span>
+                <div class="mobile-tool-name">ATS Scorer</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('jobMatch')">
+                <span class="mobile-tool-icon">🔍</span>
+                <div class="mobile-tool-name">Job Match</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('interviewPrep')">
+                <span class="mobile-tool-icon">🎤</span>
+                <div class="mobile-tool-name">Interview Prep</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ATS Platform Section -->
+    <div id="mobile-ats-tools" class="mobile-tools-section">
+        <div class="mobile-tools-grid">
+            <div class="mobile-tool-card" onclick="openMobileTool('atsDashboard')">
+                <span class="mobile-tool-icon">📊</span>
+                <div class="mobile-tool-name">Dashboard</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('candidateManagement')">
+                <span class="mobile-tool-icon">👥</span>
+                <div class="mobile-tool-name">Candidates</div>
+            </div>
+            <div class="mobile-tool-card" onclick="openMobileTool('jobManagement')">
+                <span class="mobile-tool-icon">📋</span>
+                <div class="mobile-tool-name">Job Management</div>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Main Container -->
     <div class="main-container">
         <!-- Sidebar -->
