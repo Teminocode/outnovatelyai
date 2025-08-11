@@ -519,6 +519,40 @@
         padding: 1rem;
     }
 }
+        /* HIDE MOBILE ELEMENTS ON DESKTOP */
+@media (min-width: 769px) {
+    .mobile-hamburger {
+        display: none !important;
+    }
+    
+    .mobile-tools-overlay {
+        display: none !important;
+    }
+    
+    .mobile-nav {
+        display: none !important;
+    }
+    
+    /* Make sure desktop sidebar shows */
+    .sidebar {
+        display: block !important;
+        width: 280px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+        overflow-y: auto;
+    }
+    
+    .main-container {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .content-area {
+        flex: 1;
+    }
+}
         /* Tool specific styles */
         .tool-content {
             display: none;
