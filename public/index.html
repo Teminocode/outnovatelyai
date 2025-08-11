@@ -1296,86 +1296,113 @@
     </footer>
 
     <script>
-        // Tool Modal Connection Function
-        function openToolModal(modalId) {
-            // Method 1: If this homepage is in the same file as your tools
-            // Uncomment this if you merge the files:
-            // if (typeof openModal === 'function') {
-            //     openModal(modalId);
-            // } else {
-            //     alert('Modal function not found. Make sure tools are loaded.');
-            // }
+    // FIXED: Tool Modal Connection Function
+    function openToolModal(modalId) {
+        // Ensure all devices redirect to the same tools.html file
+        console.log('Redirecting to tools.html#' + modalId); // Debug log
+        window.location.href = `tools.html#${modalId}`;
+    }
 
-            // Method 2: Redirect to your tools page with the specific modal
-            // Replace 'index.html' with your actual tools page filename
-            window.location.href = `tools.html#${modalId}`;
-            
-            // Method 3: Open in new tab (if you prefer)
-            // window.open(`index.html#${modalId}`, '_blank');
-        }
+    // FIXED: Authentication function  
+    function redirectToAuth() {
+        // Ensure consistent redirect for both mobile and desktop
+        console.log('Redirecting to tools.html#signup'); // Debug log
+        window.location.href = 'tools.html#signup';
+    }
 
-        // Authentication function
-        function redirectToAuth() {
-    // Redirect to tools page and trigger auth modal
-    window.location.href = 'tools.html#signup';
-    // Alternative: Just go to tools page and let them click sign in
-    // window.location.href = 'tools.html';
-        }
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         });
+    });
 
-        // Update auth buttons to use the redirect function
+    // FIXED: Ensure ALL buttons use consistent redirects
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Page loaded, fixing button redirects...'); // Debug log
+        
+        // Fix all CTA buttons (Sign up, Start Trial, etc.)
         document.querySelectorAll('.cta-primary, .cta-nav-btn').forEach(btn => {
             if (btn.textContent.includes('Trial') || btn.textContent.includes('Start')) {
-                btn.onclick = redirectToAuth;
+                // Remove any existing onclick handlers
+                btn.removeAttribute('onclick');
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('CTA button clicked on', window.innerWidth <= 768 ? 'mobile' : 'desktop');
+                    redirectToAuth();
+                });
             }
         });
 
-        // Mobile menu
-        if (window.innerWidth <= 1024) {
-            const navContainer = document.querySelector('.nav-container');
-            const mobileToggle = document.createElement('button');
-            mobileToggle.innerHTML = '☰';
-            mobileToggle.style.cssText = 'background:none;border:none;color:white;font-size:24px;cursor:pointer;padding:8px;';
-            
-            mobileToggle.addEventListener('click', () => {
-                const navMenu = document.querySelector('.nav-menu');
-                if (navMenu.style.display === 'flex') {
-                    navMenu.style.display = 'none';
-                    mobileToggle.innerHTML = '☰';
-                } else {
-                    navMenu.style.cssText = 'display:flex;position:absolute;top:100%;left:0;right:0;background:rgba(15,15,35,0.98);flex-direction:column;padding:20px;gap:20px;border-top:1px solid rgba(255,255,255,0.1);';
-                    mobileToggle.innerHTML = '✕';
+        // Fix all tool buttons  
+        document.querySelectorAll('.tool-btn').forEach(btn => {
+            const onclickAttr = btn.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.includes('openToolModal')) {
+                // Extract modal ID and fix redirect
+                const match = onclickAttr.match(/openToolModal\('([^']+)'\)/);
+                if (match) {
+                    const modalId = match[1];
+                    btn.removeAttribute('onclick');
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('Tool button clicked:', modalId, 'on', window.innerWidth <= 768 ? 'mobile' : 'desktop');
+                        openToolModal(modalId);
+                    });
                 }
-            });
-            
-            navContainer.appendChild(mobileToggle);
-        }
-
-        // Scroll effects
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.nav-header');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(15, 15, 35, 0.95)';
-                nav.style.boxShadow = '0 4px 32px rgba(0, 0, 0, 0.3)';
-            } else {
-                nav.style.background = 'rgba(15, 15, 35, 0.9)';
-                nav.style.boxShadow = 'none';
             }
         });
-    </script>
+    });
+
+    // FIXED: Mobile menu with proper redirects
+    if (window.innerWidth <= 1024) {
+        const navContainer = document.querySelector('.nav-container');
+        const mobileToggle = document.createElement('button');
+        mobileToggle.innerHTML = '☰';
+        mobileToggle.style.cssText = 'background:none;border:none;color:white;font-size:24px;cursor:pointer;padding:8px;';
+        
+        mobileToggle.addEventListener('click', () => {
+            const navMenu = document.querySelector('.nav-menu');
+            if (navMenu.style.display === 'flex') {
+                navMenu.style.display = 'none';
+                mobileToggle.innerHTML = '☰';
+            } else {
+                navMenu.style.cssText = 'display:flex;position:absolute;top:100%;left:0;right:0;background:rgba(15,15,35,0.98);flex-direction:column;padding:20px;gap:20px;border-top:1px solid rgba(255,255,255,0.1);';
+                mobileToggle.innerHTML = '✕';
+                
+                // Fix mobile menu buttons
+                navMenu.querySelectorAll('.cta-nav-btn').forEach(btn => {
+                    btn.removeAttribute('onclick');
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('Mobile menu CTA clicked');
+                        redirectToAuth();
+                    });
+                });
+            }
+        });
+        
+        navContainer.appendChild(mobileToggle);
+    }
+
+    // Scroll effects
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.nav-header');
+        if (window.scrollY > 100) {
+            nav.style.background = 'rgba(15, 15, 35, 0.95)';
+            nav.style.boxShadow = '0 4px 32px rgba(0, 0, 0, 0.3)';
+        } else {
+            nav.style.background = 'rgba(15, 15, 35, 0.9)';
+            nav.style.boxShadow = 'none';
+        }
+    });
+</script>
 </body>
 </html>
                 
