@@ -343,50 +343,222 @@
         }
 
         /* Responsive */
-       @media (max-width: 768px) {
+       /* PROFESSIONAL MOBILE DESIGN FOR TOOLS PAGE */
+@media (max-width: 768px) {
+    /* Hide desktop sidebar completely on mobile */
     .sidebar {
-        width: 100%;
-        height: auto;
-        max-height: 400px;      /* ✅ More space */
-        display: block;         /* ✅ Makes it vertical instead of horizontal */
-        /* REMOVED: gap: 1rem; */
-        overflow-y: auto;       /* ✅ Vertical scrolling instead of horizontal */
-        padding: 1rem;
+        display: none;
     }
 
-    .sidebar-section {
-        margin-bottom: 1.5rem;  /* ✅ Proper spacing */
-        /* REMOVED: min-width: 200px; */
+    .main-container {
+        flex-direction: column;
+    }
+
+    /* Create a new mobile navigation */
+    .mobile-nav {
+        display: block;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        position: sticky;
+        top: 80px;
+        z-index: 100;
+    }
+
+    /* Tab-style navigation */
+    .mobile-nav-tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .mobile-nav-tab {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.8);
+        border: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        min-width: 120px;
+    }
+
+    .mobile-nav-tab.active {
+        background: linear-gradient(135deg, #a855f7 0%, #4ecdc4 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+    }
+
+    /* Tools grid for mobile */
+    .mobile-tools-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 0 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .mobile-tool-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mobile-tool-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #a855f7 0%, #4ecdc4 100%);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-tool-card:active,
+    .mobile-tool-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(168, 85, 247, 0.3);
+        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+    }
+
+    .mobile-tool-card:active::before,
+    .mobile-tool-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .mobile-tool-card.active {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(76, 201, 196, 0.2));
+        border-color: rgba(168, 85, 247, 0.4);
+        transform: translateY(-4px);
+    }
+
+    .mobile-tool-icon {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .mobile-tool-name {
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: white;
+        line-height: 1.3;
+    }
+
+    /* Content area adjustments */
+    .content-area {
+        margin-top: 0;
+    }
+
+    .content-header {
+        padding: 1.5rem 1rem;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .content-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .content-description {
+        font-size: 0.875rem;
+        opacity: 0.8;
     }
 
     .workspace {
         flex-direction: column;
+        gap: 0;
     }
 
     .form-panel,
     .output-panel {
         width: 100%;
+        padding: 1.5rem;
+    }
+
+    .form-panel {
+        background: rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .output-panel {
+        min-height: 400px;
     }
 
     .form-row {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .action-buttons {
+        margin-top: 1.5rem;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    /* Hide sections by default */
+    .mobile-tools-section {
+        display: none;
+    }
+
+    .mobile-tools-section.active {
+        display: block;
+    }
+
+    /* Back button for mobile */
+    .mobile-back-btn {
+        display: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 1rem;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .mobile-back-btn.show {
+        display: flex;
     }
 }
 
-            .workspace {
-                flex-direction: column;
-            }
-
-            .form-panel,
-            .output-panel {
-                width: 100%;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
+/* Hide mobile nav on desktop */
+@media (min-width: 769px) {
+    .mobile-nav {
+        display: none;
+    }
+    
+    .mobile-back-btn {
+        display: none;
+    }
+}
         /* Tool specific styles */
         .tool-content {
             display: none;
