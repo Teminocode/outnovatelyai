@@ -343,25 +343,35 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-            }
+       @media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 400px;      /* ✅ More space */
+        display: block;         /* ✅ Makes it vertical instead of horizontal */
+        /* REMOVED: gap: 1rem; */
+        overflow-y: auto;       /* ✅ Vertical scrolling instead of horizontal */
+        padding: 1rem;
+    }
 
-            .sidebar {
-                width: 100%;
-                height: auto;
-                max-height: 500px;
-                display: flex;
-                gap: 1rem;
-                overflow-x: auto;
-                padding: 1rem;
-            }
+    .sidebar-section {
+        margin-bottom: 1.5rem;  /* ✅ Proper spacing */
+        /* REMOVED: min-width: 200px; */
+    }
 
-            .sidebar-section {
-                margin-bottom: 0;
-                min-width: 200px;
-            }
+    .workspace {
+        flex-direction: column;
+    }
+
+    .form-panel,
+    .output-panel {
+        width: 100%;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
 
             .workspace {
                 flex-direction: column;
