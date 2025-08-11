@@ -342,37 +342,82 @@
             opacity: 0.5;
         }
 
-        /* Responsive */
-       /* PROFESSIONAL MOBILE DESIGN FOR TOOLS PAGE */
 @media (max-width: 768px) {
-    /* Hide desktop sidebar completely on mobile */
+    /* Fix header layout */
+    .header {
+        padding: 0.75rem 1rem;
+        position: relative;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .header-nav {
+        display: none; /* Hide nav links */
+    }
+
+    .auth-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    /* Hide desktop sidebar */
     .sidebar {
         display: none;
     }
 
-    .main-container {
-        flex-direction: column;
+    /* Hamburger button */
+    .mobile-hamburger {
+        position: fixed;
+        top: 85px;
+        left: 20px;
+        background: linear-gradient(135deg, #a855f7 0%, #4ecdc4 100%);
+        color: white;
+        border: none;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 1001;
+        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        transition: all 0.3s ease;
     }
 
-    /* Create a new mobile navigation */
-    .mobile-nav {
+    .mobile-hamburger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(168, 85, 247, 0.5);
+    }
+
+    /* Full screen overlay */
+    .mobile-tools-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0d1b2a 100%);
+        z-index: 1000;
+        display: none;
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+    .mobile-tools-overlay.show {
         display: block;
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 1rem;
-        position: sticky;
-        top: 80px;
-        z-index: 100;
     }
 
-    /* Tab-style navigation */
+    .mobile-overlay-content {
+        padding-top: 60px;
+    }
+
+    /* Tab navigation */
     .mobile-nav-tabs {
         display: flex;
         gap: 0.5rem;
-        margin-bottom: 1rem;
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
+        margin-bottom: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     .mobile-nav-tab {
@@ -385,8 +430,6 @@
         font-size: 0.875rem;
         cursor: pointer;
         transition: all 0.3s ease;
-        white-space: nowrap;
-        min-width: 120px;
     }
 
     .mobile-nav-tab.active {
@@ -396,13 +439,13 @@
         box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
     }
 
-    /* Tools grid for mobile */
+    /* Tools grid */
     .mobile-tools-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-        padding: 0 1rem;
-        margin-bottom: 1rem;
+        max-width: 400px;
+        margin: 0 auto;
     }
 
     .mobile-tool-card {
@@ -414,38 +457,11 @@
         cursor: pointer;
         transition: all 0.3s ease;
         backdrop-filter: blur(20px);
-        position: relative;
-        overflow: hidden;
     }
 
-    .mobile-tool-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #a855f7 0%, #4ecdc4 100%);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
-
-    .mobile-tool-card:active,
-    .mobile-tool-card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(168, 85, 247, 0.3);
-        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
-    }
-
-    .mobile-tool-card:active::before,
-    .mobile-tool-card:hover::before {
-        transform: scaleX(1);
-    }
-
-    .mobile-tool-card.active {
+    .mobile-tool-card:active {
+        transform: scale(0.95);
         background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(76, 201, 196, 0.2));
-        border-color: rgba(168, 85, 247, 0.4);
-        transform: translateY(-4px);
     }
 
     .mobile-tool-icon {
@@ -461,66 +477,6 @@
         line-height: 1.3;
     }
 
-    /* Content area adjustments */
-    .content-area {
-        margin-top: 0;
-    }
-
-    .content-header {
-        padding: 1.5rem 1rem;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.02);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .content-title {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .content-description {
-        font-size: 0.875rem;
-        opacity: 0.8;
-    }
-
-    .workspace {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .form-panel,
-    .output-panel {
-        width: 100%;
-        padding: 1.5rem;
-    }
-
-    .form-panel {
-        background: rgba(255, 255, 255, 0.02);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .output-panel {
-        min-height: 400px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .action-buttons {
-        margin-top: 1.5rem;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .btn {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1rem;
-    }
-
-    /* Hide sections by default */
     .mobile-tools-section {
         display: none;
     }
@@ -529,34 +485,38 @@
         display: block;
     }
 
-    /* Back button for mobile */
-    .mobile-back-btn {
-        display: none;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: none;
-        padding: 0.75rem 1rem;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        margin: 1rem;
-        align-items: center;
-        gap: 0.5rem;
+    /* Rest of mobile styles */
+    .main-container {
+        flex-direction: column;
     }
 
-    .mobile-back-btn.show {
-        display: flex;
+    .content-header {
+        padding: 1.5rem 1rem;
+        text-align: center;
     }
-}
 
-/* Hide mobile nav on desktop */
-@media (min-width: 769px) {
-    .mobile-nav {
-        display: none;
+    .workspace {
+        flex-direction: column;
     }
-    
-    .mobile-back-btn {
-        display: none;
+
+    .form-panel,
+    .output-panel {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem;
     }
 }
         /* Tool specific styles */
@@ -617,99 +577,101 @@
             <button id="signInBtn" class="auth-btn" onclick="showAuthModal()">Sign In</button>
         </div>
     </header>
-<div class="mobile-nav">
-    <!-- Back button (hidden by default) -->
-    <button class="mobile-back-btn" onclick="showMobileToolsMenu()">
-        <span>←</span> Back to Tools
-    </button>
+<!-- Replace the existing mobile-nav div with this -->
+<button class="mobile-hamburger" onclick="toggleMobileMenu()">
+    <span id="hamburgerIcon">☰</span>
+</button>
 
-    <!-- Tab navigation -->
-    <div class="mobile-nav-tabs">
-        <button class="mobile-nav-tab active" onclick="showMobileSection('hr')">
-            HR Tools
-        </button>
-        <button class="mobile-nav-tab" onclick="showMobileSection('career')">
-            Career Tools  
-        </button>
-        <button class="mobile-nav-tab" onclick="showMobileSection('ats')">
-            ATS Platform
-        </button>
-    </div>
+<div class="mobile-tools-overlay" id="mobileToolsOverlay">
+    <div class="mobile-overlay-content">
+        <!-- Tab navigation -->
+        <div class="mobile-nav-tabs">
+            <button class="mobile-nav-tab active" onclick="showMobileSection('hr')">
+                HR Tools
+            </button>
+            <button class="mobile-nav-tab" onclick="showMobileSection('career')">
+                Career Tools  
+            </button>
+            <button class="mobile-nav-tab" onclick="showMobileSection('ats')">
+                ATS Platform
+            </button>
+        </div>
 
-    <!-- HR Tools Section -->
-    <div id="mobile-hr-tools" class="mobile-tools-section active">
-        <div class="mobile-tools-grid">
-            <div class="mobile-tool-card" onclick="openMobileTool('jobDescription')">
-                <span class="mobile-tool-icon">📝</span>
-                <div class="mobile-tool-name">Job Description</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('interviewQuestions')">
-                <span class="mobile-tool-icon">❓</span>
-                <div class="mobile-tool-name">Interview Questions</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('candidateScreening')">
-                <span class="mobile-tool-icon">🔍</span>
-                <div class="mobile-tool-name">Candidate Screening</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('onboarding')">
-                <span class="mobile-tool-icon">🎯</span>
-                <div class="mobile-tool-name">Employee Onboarding</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('performance')">
-                <span class="mobile-tool-icon">⭐</span>
-                <div class="mobile-tool-name">Performance Review</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('policy')">
-                <span class="mobile-tool-icon">📋</span>
-                <div class="mobile-tool-name">HR Policy</div>
+        <!-- HR Tools Section -->
+        <div id="mobile-hr-tools" class="mobile-tools-section active">
+            <div class="mobile-tools-grid">
+                <div class="mobile-tool-card" onclick="openMobileTool('jobDescription')">
+                    <span class="mobile-tool-icon">📝</span>
+                    <div class="mobile-tool-name">Job Description</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('interviewQuestions')">
+                    <span class="mobile-tool-icon">❓</span>
+                    <div class="mobile-tool-name">Interview Questions</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('candidateScreening')">
+                    <span class="mobile-tool-icon">🔍</span>
+                    <div class="mobile-tool-name">Candidate Screening</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('onboarding')">
+                    <span class="mobile-tool-icon">🎯</span>
+                    <div class="mobile-tool-name">Employee Onboarding</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('performance')">
+                    <span class="mobile-tool-icon">⭐</span>
+                    <div class="mobile-tool-name">Performance Review</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('policy')">
+                    <span class="mobile-tool-icon">📋</span>
+                    <div class="mobile-tool-name">HR Policy</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Career Tools Section -->
-    <div id="mobile-career-tools" class="mobile-tools-section">
-        <div class="mobile-tools-grid">
-            <div class="mobile-tool-card" onclick="openMobileTool('resume')">
-                <span class="mobile-tool-icon">📄</span>
-                <div class="mobile-tool-name">AI Resume</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('coverLetter')">
-                <span class="mobile-tool-icon">💌</span>
-                <div class="mobile-tool-name">Cover Letter</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('linkedin')">
-                <span class="mobile-tool-icon">💼</span>
-                <div class="mobile-tool-name">LinkedIn Profile</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('atsScorer')">
-                <span class="mobile-tool-icon">🎯</span>
-                <div class="mobile-tool-name">ATS Scorer</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('jobMatch')">
-                <span class="mobile-tool-icon">🔍</span>
-                <div class="mobile-tool-name">Job Match</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('interviewPrep')">
-                <span class="mobile-tool-icon">🎤</span>
-                <div class="mobile-tool-name">Interview Prep</div>
+        <!-- Career Tools Section -->
+        <div id="mobile-career-tools" class="mobile-tools-section">
+            <div class="mobile-tools-grid">
+                <div class="mobile-tool-card" onclick="openMobileTool('resume')">
+                    <span class="mobile-tool-icon">📄</span>
+                    <div class="mobile-tool-name">AI Resume</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('coverLetter')">
+                    <span class="mobile-tool-icon">💌</span>
+                    <div class="mobile-tool-name">Cover Letter</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('linkedin')">
+                    <span class="mobile-tool-icon">💼</span>
+                    <div class="mobile-tool-name">LinkedIn Profile</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('atsScorer')">
+                    <span class="mobile-tool-icon">🎯</span>
+                    <div class="mobile-tool-name">ATS Scorer</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('jobMatch')">
+                    <span class="mobile-tool-icon">🔍</span>
+                    <div class="mobile-tool-name">Job Match</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('interviewPrep')">
+                    <span class="mobile-tool-icon">🎤</span>
+                    <div class="mobile-tool-name">Interview Prep</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- ATS Platform Section -->
-    <div id="mobile-ats-tools" class="mobile-tools-section">
-        <div class="mobile-tools-grid">
-            <div class="mobile-tool-card" onclick="openMobileTool('atsDashboard')">
-                <span class="mobile-tool-icon">📊</span>
-                <div class="mobile-tool-name">Dashboard</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('candidateManagement')">
-                <span class="mobile-tool-icon">👥</span>
-                <div class="mobile-tool-name">Candidates</div>
-            </div>
-            <div class="mobile-tool-card" onclick="openMobileTool('jobManagement')">
-                <span class="mobile-tool-icon">📋</span>
-                <div class="mobile-tool-name">Job Management</div>
+        <!-- ATS Platform Section -->
+        <div id="mobile-ats-tools" class="mobile-tools-section">
+            <div class="mobile-tools-grid">
+                <div class="mobile-tool-card" onclick="openMobileTool('atsDashboard')">
+                    <span class="mobile-tool-icon">📊</span>
+                    <div class="mobile-tool-name">Dashboard</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('candidateManagement')">
+                    <span class="mobile-tool-icon">👥</span>
+                    <div class="mobile-tool-name">Candidates</div>
+                </div>
+                <div class="mobile-tool-card" onclick="openMobileTool('jobManagement')">
+                    <span class="mobile-tool-icon">📋</span>
+                    <div class="mobile-tool-name">Job Management</div>
+                </div>
             </div>
         </div>
     </div>
